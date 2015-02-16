@@ -1,4 +1,4 @@
-package antresol.it.antresol.util;
+package antresol.it.antresol.utils;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

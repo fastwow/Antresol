@@ -3,7 +3,7 @@ package antresol.it.antresol.model;
 /**
  * Created by artem on 2/12/15.
  */
-public class Country {
+public class Country extends BaseModel {
 
     private long id;
     private String name;

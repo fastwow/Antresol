@@ -3,7 +3,7 @@ package antresol.it.antresol.model;
 /**
  * Created by artem on 2/12/15.
  */
-public class Like {
+public class Like extends BaseModel {
 
     private long adId;
     private long userId;

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by artem on 2/12/15.
  */
-public class Ad {
+public class Ad extends BaseModel {
 
     private String title;
     private String desc;

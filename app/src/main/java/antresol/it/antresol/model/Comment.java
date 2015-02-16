@@ -3,7 +3,7 @@ package antresol.it.antresol.model;
 /**
  * Created by artem on 2/12/15.
  */
-public class Comment {
+public class Comment extends BaseModel {
 
     private String message;
     private long adId;

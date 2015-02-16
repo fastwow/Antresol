@@ -3,7 +3,7 @@ package antresol.it.antresol.model;
 /**
  * Created by artem on 2/12/15.
  */
-public class User {
+public class User extends BaseModel {
 
     private long userId;
     private String avatar;
