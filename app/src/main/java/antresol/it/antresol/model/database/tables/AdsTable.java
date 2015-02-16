@@ -7,13 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class AdsTable implements ITable {
 
+    public static final String ADS_TABLE_NAME = "Ads";
+
     @Override
     public void create(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE ADS (INTEGER PRIMARY KEY _ID, TEXT TITLE, TEXT DESC, " +
-                "INTEGER PRICE, INTEGER LAT, INTEGER LON, INTEGER CREATE_AT, INTEGER RANK," +
-                " INTEGER CATEGORY_ID, INTEGER COUNTRY_ID, INTEGER LIKES_COUNT," +
-                " INTEGER IS_DELETED, INTEGER IS_DEACTIVATED, INTEGER COMMENTS_COUNT)");
+        db.execSQL("CREATE TABLE " + ADS_TABLE_NAME + " (INTEGER PRIMARY KEY " + ITable._ID + ", TEXT " + ITable.TITLE + ", TEXT " + ITable.DESC + ", " +
+                "INTEGER " + ITable.PRICE + ", INTEGER " + ITable.LAT + ", INTEGER " + ITable.LON + ", INTEGER " + ITable.CREATE_AT + ", INTEGER " + ITable.RANK + "," +
+                " INTEGER " + ITable.CATEGORY_ID + ", INTEGER " + ITable.COUNTRY_ID + ", INTEGER " + ITable.LIKES_COUNT + "," +
+                " INTEGER " + ITable.IS_DELETED + ", INTEGER " + ITable.IS_DEACTIVATED + ", INTEGER " + ITable.COMMENTS_COUNT + ")");
     }
 
     @Override

@@ -1,13 +1,22 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by artem on 2/12/15.
  */
 public class User extends BaseModel {
 
+    @Expose
     private long userId;
+
+    @Expose
     private String avatar;
+
+    @Expose
     private String lastName;
+
+    @Expose
     private String firstName;
 
     public User(long userId, String avatar, String firstName, String lastName) {

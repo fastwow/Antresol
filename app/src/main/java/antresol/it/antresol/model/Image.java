@@ -1,13 +1,22 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by artem on 2/12/15.
  */
 public class Image extends BaseModel {
 
+    @Expose
     private int imageId;
+
+    @Expose
     private String url;
+
+    @Expose
     private int height;
+
+    @Expose
     private int width;
 
     public Image(int imageId, int width, int height, String url) {

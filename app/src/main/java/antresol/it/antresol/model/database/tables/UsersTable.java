@@ -7,10 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class UsersTable implements ITable {
 
+    public static final String USERS_TABLE_NAME = "Users";
+
     @Override
     public void create(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE USERS (INTEGER PRIMARY KEY _ID, TEXT LAST_NAME, TEXT FIRST_NAME, TEXT AVATAR)");
+        db.execSQL("CREATE TABLE " + USERS_TABLE_NAME + " (INTEGER PRIMARY KEY " + ITable._ID +
+                ", TEXT " + ITable.LAST_NAME + ", TEXT " + ITable.FIRST_NAME + ", TEXT " + ITable.AVATAR + ")");
     }
 
     @Override

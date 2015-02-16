@@ -1,12 +1,19 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by artem on 2/12/15.
  */
 public class Like extends BaseModel {
 
+    @Expose
     private long adId;
+
+    @Expose
     private long userId;
+
+    @Expose
     private long createdAt;
 
     public Like(long adId, long userId, long createdAt) {

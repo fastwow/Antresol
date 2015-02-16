@@ -1,14 +1,25 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by artem on 2/12/15.
  */
 public class Comment extends BaseModel {
 
+    @Expose
     private String message;
+
+    @Expose
     private long adId;
+
+    @Expose
     private long userId;
+
+    @Expose
     private long createAt;
+
+    @Expose
     private long commentId;
 
     public Comment(String message, long adId, long createAt, long commentId, long userId) {

@@ -1,5 +1,7 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**
@@ -7,22 +9,55 @@ import java.util.List;
  */
 public class Ad extends BaseModel {
 
+    @Expose
     private String title;
+
+    @Expose
     private String desc;
+
+    @Expose
     private long price;
+
+    @Expose
     private long lat;
+
+    @Expose
     private long lon;
+
+    @Expose
     private long createAt;
+
+    @Expose
     private long adId;
+
+    @Expose
     private User user;
+
+    @Expose
     private long rank;
+
+    @Expose
     private long categoryId;
+
+    @Expose
     private long countryId;
+
+    @Expose
     private long likesCount;
+
+    @Expose
     private int isDelete;
+
+    @Expose
     private int isDeactivated;
+
+    @Expose
     private long commentsCount;
+
+    @Expose
     private List<Image> imageList;
+
+    @Expose
     private List<Comment> commentList;
 
     public String getTitle() {

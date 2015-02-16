@@ -1,15 +1,28 @@
 package antresol.it.antresol.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by artem on 2/12/15.
  */
 public class Country extends BaseModel {
 
+    @Expose
     private long id;
+
+    @Expose
     private String name;
+
+    @Expose
     private String nameEn;
+
+    @Expose
     private String currency;
+
+    @Expose
     private String codeCurrency;
+
+    @Expose
     private String iso;
 
     public Country(long id, String iso, String codeCurrency, String currency, String nameEn, String name) {
