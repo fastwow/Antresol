@@ -1,15 +1,11 @@
-package antresol.it.antresol.posts.model;
+package antresol.it.antresol.model;
 
 import java.util.List;
-
-import antresol.it.antresol.comments.model.Comment;
-import antresol.it.antresol.images.model.Image;
-import antresol.it.antresol.users.model.User;
 
 /**
  * Created by artem on 2/12/15.
  */
-public class Post {
+public class Ad {
 
     private String title;
     private String desc;

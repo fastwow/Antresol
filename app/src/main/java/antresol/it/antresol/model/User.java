@@ -1,4 +1,4 @@
-package antresol.it.antresol.users.model;
+package antresol.it.antresol.model;
 
 /**
  * Created by artem on 2/12/15.
