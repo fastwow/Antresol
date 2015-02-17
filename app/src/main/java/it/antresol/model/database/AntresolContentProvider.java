@@ -48,8 +48,8 @@ public class AntresolContentProvider extends ContentProvider {
         sURIMatcher.addURI(AUTHORITY, USERS_PATH + "/#", USER_ID);
 
         // ADS
-        sURIMatcher.addURI(AUTHORITY, ADS_PATH, AD_ID);
-        sURIMatcher.addURI(AUTHORITY, ADS_PATH + "/#", ADS);
+        sURIMatcher.addURI(AUTHORITY, ADS_PATH, ADS);
+        sURIMatcher.addURI(AUTHORITY, ADS_PATH + "/#", AD_ID);
     }
 
     @Override
@@ -76,11 +76,13 @@ public class AntresolContentProvider extends ContentProvider {
                 queryBuilder.setTables(AdsTable.TABLE_NAME);
                 break;
             case USERS:
-
                 queryBuilder.setTables(UsersTable.TABLE_NAME);
                 break;
             case USER_ID:
+
+                break;
             case AD_ID:
+                queryBuilder.setTables(AdsTable.TABLE_NAME);
                 // adding the ID to the original query
                 queryBuilder.appendWhere(ITable._ID + "="
                         + uri.getLastPathSegment());

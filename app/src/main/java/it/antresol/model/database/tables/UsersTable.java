@@ -12,8 +12,8 @@ public class UsersTable implements ITable {
     @Override
     public void create(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (INTEGER PRIMARY KEY " + ITable._ID +
-                ", TEXT " + ITable.LAST_NAME + ", TEXT " + ITable.FIRST_NAME + ", TEXT " + ITable.AVATAR + ")");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( " + ITable._ID + " INTEGER PRIMARY KEY, "
+                + ITable.LAST_NAME + " TEXT, " + ITable.FIRST_NAME + " TEXT, " + ITable.AVATAR + " TEXT )");
     }
 
     @Override

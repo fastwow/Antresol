@@ -57,12 +57,13 @@ public class AntresolAPIManager {
         return mInstance;
     }
 
-    private void getAdList() {
+    public void getAdList() {
 
         mAntresolAPIService.getAdList(new Callback<Ad>() {
 
             @Override
             public void success(Ad ad, Response response) {
+
 
             }
 

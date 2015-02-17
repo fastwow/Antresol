@@ -12,10 +12,10 @@ public class AdsTable implements ITable {
     @Override
     public void create(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (INTEGER PRIMARY KEY " + ITable._ID + ", TEXT " + ITable.TITLE + ", TEXT " + ITable.DESC + ", " +
-                "INTEGER " + ITable.PRICE + ", INTEGER " + ITable.LAT + ", INTEGER " + ITable.LON + ", INTEGER " + ITable.CREATE_AT + ", INTEGER " + ITable.RANK + "," +
-                " INTEGER " + ITable.CATEGORY_ID + ", INTEGER " + ITable.COUNTRY_ID + ", INTEGER " + ITable.LIKES_COUNT + "," +
-                " INTEGER " + ITable.IS_DELETED + ", INTEGER " + ITable.IS_DEACTIVATED + ", INTEGER " + ITable.COMMENTS_COUNT + ")");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( " + ITable._ID + " INTEGER PRIMARY KEY, " + ITable.TITLE + " TEXT , "
+                + ITable.DESC + " TEXT, " + ITable.PRICE + " INTEGER , " + ITable.LAT + " REAL , " + ITable.LON + " REAL , "
+                + ITable.CREATE_AT + " INTEGER," + ITable.RANK + " INTEGER ," + ITable.CATEGORY_ID + " INTEGER,  " + ITable.COUNTRY_ID
+                + " INTEGER, " + ITable.LIKES_COUNT + " INTEGER," + ITable.IS_DEACTIVATED + " INTEGER," + ITable.COMMENTS_COUNT + " INTEGER )");
     }
 
     @Override

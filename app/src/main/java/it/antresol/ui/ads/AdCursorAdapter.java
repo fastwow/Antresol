@@ -30,7 +30,6 @@ public class AdCursorAdapter extends CursorAdapter<AdCursorAdapter.ViewHolder> {
     public AdCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
 
-
     }
 
 

@@ -14,6 +14,8 @@ public interface ITable {
     public static String LAT = "lat";
     public static String LON = "lon";
     public static String CREATE_AT = "create_at";
+    public static String UPDATED_AT = "updated_at";
+    public static String DELETE_REASON = "delete_reason";
     public static String RANK = "rank";
     public static String CATEGORY_ID = "category_id";
     public static String COUNTRY_ID = "country_id";

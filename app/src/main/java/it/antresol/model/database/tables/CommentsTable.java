@@ -12,8 +12,9 @@ public class CommentsTable implements ITable {
     @Override
     public void create(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (INTEGER PRIMARY KEY " + ITable._ID + ", INTEGER " +
-             ITable.USER_ID + ", INTEGER " + ITable.COMMENT_ID + ", INTEGER " + ITable.CREATE_AT + ", TEXT " + ITable.MESSAGE + ")");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ( " + ITable._ID + " INTEGER PRIMARY KEY, "
+                + ITable.USER_ID + " INTEGER, " + ITable.COMMENT_ID + " INTEGER," + ITable.CREATE_AT
+                + " INTEGER, " + ITable.MESSAGE + " TEXT )");
     }
 
     @Override

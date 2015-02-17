@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
+import it.antresol.api.AntresolAPIManager;
+import it.antresol.model.database.AntresolContentProvider;
 import it.antresol.ui.BaseFragment;
 
 /**
@@ -36,7 +39,7 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
 
     public static Fragment newInstance() {
 
-        Fragment instance = new Fragment();
+        AdListFragment instance = new AdListFragment();
 
         return instance;
     }
@@ -52,6 +55,8 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
 
         mAdListRecyclerView.setLayoutManager(mLayoutManager);
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdCursorAdapter = new AdCursorAdapter(getActivity(), null, 0);
+        mAdListRecyclerView.setAdapter(mAdCursorAdapter);
 
         getLoaderManager().initLoader(LOADER_AD_LIST_ID, null, this);
 
@@ -64,28 +69,48 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    private boolean isNeedToFetchData(Cursor cursor) {
 
-        ButterKnife.inject(this, mRoot);
+        return cursor == null || cursor.getCount() <= 0;
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        return null;
+        switch (id) {
+
+            case LOADER_AD_LIST_ID:
+
+                return new CursorLoader(getActivity(),
+                        AntresolContentProvider.ADS_CONTENT_URI, null, null, null, null);
+            default:
+                return null;
+        }
+
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-
+        mAdCursorAdapter.swapCursor(null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
         mAdCursorAdapter.swapCursor(data);
+
+        if (isNeedToFetchData(data)) {
+
+            AntresolAPIManager.getInstance().getAdList();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ButterKnife.inject(this, mRoot);
     }
 }
