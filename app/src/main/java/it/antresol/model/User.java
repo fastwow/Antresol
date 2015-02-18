@@ -1,12 +1,14 @@
 package it.antresol.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by artem on 2/12/15.
  */
 public class User extends BaseModel {
 
+    @SerializedName("user_id")
     @Expose
     private long userId;
 
@@ -14,17 +16,27 @@ public class User extends BaseModel {
     private String avatar;
 
     @Expose
+    private String phone;
+
+    @SerializedName("last_name")
+    @Expose
     private String lastName;
 
+    @SerializedName("first_name")
     @Expose
     private String firstName;
 
-    public User(long userId, String avatar, String firstName, String lastName) {
+    public User() {
+
+    }
+
+    public User(long userId, String avatar, String phone, String lastName, String firstName) {
 
         this.userId = userId;
         this.avatar = avatar;
-        this.firstName = firstName;
+        this.phone = phone;
         this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     public long getUserId() {
@@ -37,14 +49,24 @@ public class User extends BaseModel {
         this.userId = userId;
     }
 
-    public String getFirstName() {
+    public String getAvatar() {
 
-        return firstName;
+        return avatar;
     }
 
-    public void setFirstName(String firstName) {
+    public void setAvatar(String avatar) {
 
-        this.firstName = firstName;
+        this.avatar = avatar;
+    }
+
+    public String getPhone() {
+
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+
+        this.phone = phone;
     }
 
     public String getLastName() {
@@ -57,13 +79,13 @@ public class User extends BaseModel {
         this.lastName = lastName;
     }
 
-    public String getAvatar() {
+    public String getFirstName() {
 
-        return avatar;
+        return firstName;
     }
 
-    public void setAvatar(String avatar) {
+    public void setFirstName(String firstName) {
 
-        this.avatar = avatar;
+        this.firstName = firstName;
     }
 }

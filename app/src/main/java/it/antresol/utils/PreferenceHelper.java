@@ -6,9 +6,9 @@ import android.preference.PreferenceManager;
 /**
  * Created by artem on 2/16/15.
  */
-public class AntresolHelper {
+public class PreferenceHelper {
 
-    private static AntresolHelper mInstance = null;
+    private static PreferenceHelper mInstance = null;
 
     private Context mContenxt;
 
@@ -18,15 +18,15 @@ public class AntresolHelper {
     // reflection fields
     private boolean isUserLogged;
 
-    private AntresolHelper(Context context) {
+    private PreferenceHelper(Context context) {
 
         mContenxt = context;
     }
 
-    public static AntresolHelper getInstance(Context context) {
+    public static PreferenceHelper getInstance(Context context) {
 
         if (mInstance == null)
-            mInstance = new AntresolHelper(context);
+            mInstance = new PreferenceHelper(context);
 
         return mInstance;
     }

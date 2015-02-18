@@ -1,5 +1,7 @@
 package it.antresol.api;
 
+import java.util.List;
+
 import it.antresol.model.Ad;
 import retrofit.Callback;
 import retrofit.http.GET;
@@ -16,5 +18,5 @@ public interface AntresolAPI {
     String BASE_URL = "http://api.antresol.it/" + SERVER_VERSION;
 
     @GET("/ads")
-    void getAdList(Callback<Ad> results);
+    void getAdList(Callback<List<Ad>> results);
 }
