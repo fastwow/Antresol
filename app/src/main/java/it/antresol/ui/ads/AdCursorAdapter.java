@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.model.database.tables.ITable;
 import it.antresol.ui.views.CursorAdapter;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by artem on 2/16/15.
@@ -41,7 +42,7 @@ public class AdCursorAdapter extends CursorAdapter<AdCursorAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @InjectView(R.id.image)
-        public ImageView mAdImageView;
+        ImageView mAdImageView;
 
         public ViewHolder(View view) {
             super(view);
@@ -68,5 +69,6 @@ public class AdCursorAdapter extends CursorAdapter<AdCursorAdapter.ViewHolder> {
         String adImageUrl = cursor.getString(cursor.getColumnIndex(ITable.URL));
 
         mPicasso.load(adImageUrl).error(android.R.drawable.stat_notify_error).placeholder(android.R.drawable.stat_notify_sync).into(holder.mAdImageView);
+
     }
 }

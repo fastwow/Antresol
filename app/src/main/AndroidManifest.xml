@@ -22,9 +22,12 @@
         </activity>
 
 
+        <!--
         <provider
             android:name=".model.database.AntresolContentProvider"
             android:authorities="it.antresol.contentprovider"></provider>
+
+-->
     </application>
 
 </manifest>

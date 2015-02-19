@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by artem on 2/18/15.
  */
-public class GetAds {
+public class GetAds extends BaseModel {
 
 
     @SerializedName("data")
@@ -22,4 +22,45 @@ public class GetAds {
     @SerializedName("_links")
     @Expose
     private Links links;
+
+    public GetAds() {
+
+    }
+
+    public GetAds(List<Ad> data, Meta meta, Links links) {
+
+        this.data = data;
+        this.meta = meta;
+        this.links = links;
+    }
+
+    public List<Ad> getData() {
+
+        return data;
+    }
+
+    public void setData(List<Ad> data) {
+
+        this.data = data;
+    }
+
+    public Meta getMeta() {
+
+        return meta;
+    }
+
+    public void setMeta(Meta meta) {
+
+        this.meta = meta;
+    }
+
+    public Links getLinks() {
+
+        return links;
+    }
+
+    public void setLinks(Links links) {
+
+        this.links = links;
+    }
 }

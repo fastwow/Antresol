@@ -10,12 +10,11 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
-import it.antresol.api.IRequestStatusListener;
 
 /**
  * Created by artem on 2/16/15.
  */
-public class BaseActivityBarActivity extends ActionBarActivity implements IUIEventListener, IRequestStatusListener {
+public class BaseActivityBarActivity extends ActionBarActivity implements IUIEventListener {
 
     @InjectView(R.id.progress_bar)
     ProgressBar mWaitingProgressBar;
@@ -40,6 +39,7 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
     @Override
     public void showErrorMessage(String text) {
 
+        dismissProgressBar();
         if (mErrorMessageTv != null) {
 
             String textToSet = !TextUtils.isEmpty(text) ? text : getString(R.string.error_message_default);
@@ -51,6 +51,7 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
     @Override
     public void showErrorMessage() {
 
+        dismissProgressBar();
         showErrorMessage("");
     }
 
@@ -69,6 +70,7 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
     @Override
     public void showProgressBar() {
 
+        hideErrorMessage();
         setWaitingProgressBarVisibility(true);
     }
 
@@ -76,26 +78,5 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
     public void dismissProgressBar() {
 
         setWaitingProgressBarVisibility(false);
-    }
-
-    @Override
-    public void onSuccess() {
-
-        hideErrorMessage();
-        dismissProgressBar();
-    }
-
-    @Override
-    public void onError() {
-
-        dismissProgressBar();
-        showErrorMessage();
-    }
-
-    @Override
-    public void onError(String text) {
-
-        dismissProgressBar();
-        showErrorMessage(text);
     }
 }

@@ -7,7 +7,9 @@ import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.IOException;
+import java.util.List;
 
+import it.antresol.model.Ad;
 import it.antresol.model.GetAds;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -23,11 +25,15 @@ public class AntresolAPIManager {
 
     private static final String TAG = AntresolAPIManager.class.getSimpleName();
 
+    private static final String FIRST_PAGE = "1";
+
     private static AntresolAPIManager mInstance;
 
     //Singleton Instance of our Rest Client
     private AntresolAPIService mAntresolAPIServiceService;
     private Context mContext;
+
+    private GetAds mGetAds = null;
 
     private AntresolAPIManager(Context context) {
 
@@ -88,19 +94,45 @@ public class AntresolAPIManager {
     }
     */
 
-    public void getAdList(final IRequestStatusListener listener) {
+    public void getAdList(boolean isRefreshAction, final IRequestStatusListener listener) {
 
-        mAntresolAPIServiceService.getAdList(new Callback<GetAds>() {
+        final String numPage;
+        if (isRefreshAction || mGetAds == null) {
+
+            numPage = FIRST_PAGE;
+        } else {
+
+            if (mGetAds.getMeta().getCurrentPage() <= mGetAds.getMeta().getTotalCount()) {
+
+                numPage = (mGetAds.getMeta().getCurrentPage() + 1) + "";
+            } else {
+
+                numPage = "";
+                if (listener != null)
+                    listener.onSuccess(null);
+            }
+        }
+        mAntresolAPIServiceService.getAdList(numPage, new Callback<GetAds>() {
 
             @Override
             public void success(GetAds result, Response response) {
 
                 try {
 
-                    //save data
-//                    mContext.getContentResolver().bulkInsert(AntresolContentProvider.ADS_CONTENT_URI, BaseModel.toContentValues(ads));
+                    if (mGetAds == null)
+                        mGetAds = result;
+                    else {
+
+                        mGetAds = result;
+                        if (!FIRST_PAGE.equalsIgnoreCase(numPage)) {
+
+                            List<Ad> prevPageAdList = mGetAds.getData();
+                            mGetAds.getData().addAll(prevPageAdList);
+                        }
+                    }
+
                     if (listener != null)
-                        listener.onSuccess();
+                        listener.onSuccess(result);
                 } catch (Throwable th) {
 
                     Log.e(TAG, "failed! ", th);

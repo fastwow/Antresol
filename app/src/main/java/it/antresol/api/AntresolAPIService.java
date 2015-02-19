@@ -3,6 +3,7 @@ package it.antresol.api;
 import it.antresol.model.GetAds;
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Query;
 
 /**
  * Created by artem on 2/16/15.
@@ -16,5 +17,5 @@ public interface AntresolAPIService {
     String BASE_URL = "http://api.antresol.it/" + SERVER_VERSION;
 
     @GET("/ads")
-    void getAdList(Callback<GetAds> results);
+    void getAdList(@Query("page") String numPage, Callback<GetAds> results);
 }

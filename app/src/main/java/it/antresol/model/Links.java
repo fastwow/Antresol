@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 /**
  * Created by artem on 2/18/15.
  */
-public class Links {
+public class Links extends BaseModel {
 
     @Expose
     private Link self;
