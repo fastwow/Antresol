@@ -54,6 +54,7 @@ public class AntresolAPIManager {
 
             mContext = context;
         }
+
     }
 
     public static void init(Context context) {
@@ -87,7 +88,7 @@ public class AntresolAPIManager {
     }
     */
 
-    public void getAdList() {
+    public void getAdList(final IRequestStatusListener listener) {
 
         mAntresolAPIServiceService.getAdList(new Callback<GetAds>() {
 
@@ -98,15 +99,21 @@ public class AntresolAPIManager {
 
                     //save data
 //                    mContext.getContentResolver().bulkInsert(AntresolContentProvider.ADS_CONTENT_URI, BaseModel.toContentValues(ads));
+                    if (listener != null)
+                        listener.onSuccess();
                 } catch (Throwable th) {
 
                     Log.e(TAG, "failed! ", th);
+                    if (listener != null)
+                        listener.onError();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
 
+                if (listener != null)
+                    listener.onError();
             }
         });
     }

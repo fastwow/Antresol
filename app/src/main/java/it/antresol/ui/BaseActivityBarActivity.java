@@ -10,16 +10,17 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
+import it.antresol.api.IRequestStatusListener;
 
 /**
  * Created by artem on 2/16/15.
  */
-public class BaseActivityBarActivity extends ActionBarActivity implements IUIEventListener {
+public class BaseActivityBarActivity extends ActionBarActivity implements IUIEventListener, IRequestStatusListener {
 
     @InjectView(R.id.progress_bar)
-    private ProgressBar mWaitingProgressBar;
+    ProgressBar mWaitingProgressBar;
     @InjectView(R.id.error_message)
-    private TextView mErrorMessageTv;
+    TextView mErrorMessageTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +69,33 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
     @Override
     public void showProgressBar() {
 
-        setProgressBarVisibility(false);
+        setWaitingProgressBarVisibility(true);
     }
 
     @Override
     public void dismissProgressBar() {
 
-        setProgressBarVisibility(false);
+        setWaitingProgressBarVisibility(false);
+    }
+
+    @Override
+    public void onSuccess() {
+
+        hideErrorMessage();
+        dismissProgressBar();
+    }
+
+    @Override
+    public void onError() {
+
+        dismissProgressBar();
+        showErrorMessage();
+    }
+
+    @Override
+    public void onError(String text) {
+
+        dismissProgressBar();
+        showErrorMessage(text);
     }
 }

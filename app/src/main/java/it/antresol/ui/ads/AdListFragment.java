@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.api.AntresolAPIManager;
+import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.database.AntresolContentProvider;
 import it.antresol.ui.BaseFragment;
 
@@ -58,6 +59,8 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
         mAdCursorAdapter = new AdCursorAdapter(getActivity(), null, 0);
         mAdListRecyclerView.setAdapter(mAdCursorAdapter);
 
+        if (mUIEventListener != null)
+            mUIEventListener.showProgressBar();
         getLoaderManager().initLoader(LOADER_AD_LIST_ID, null, this);
 
         return mRoot;
@@ -86,8 +89,6 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
             default:
                 return null;
         }
-
-
     }
 
     @Override
@@ -103,7 +104,11 @@ public class AdListFragment extends BaseFragment implements LoaderManager.Loader
 
         if (isNeedToFetchData(data)) {
 
-            AntresolAPIManager.getInstance().getAdList();
+            AntresolAPIManager.getInstance().getAdList((IRequestStatusListener) getActivity());
+        } else {
+
+            if (mUIEventListener != null)
+                mUIEventListener.dismissProgressBar();
         }
     }
 
