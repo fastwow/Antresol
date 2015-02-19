@@ -94,17 +94,22 @@ public class AntresolAPIManager {
     }
     */
 
-    public void getAdList(boolean isRefreshAction, final IRequestStatusListener listener) {
+    private String getNumPage(String url) {
+
+        return url.split("page=")[1];
+    }
+
+    public void getAdList(final boolean isNeedToLoadStartPage, final IRequestStatusListener listener) {
 
         final String numPage;
-        if (isRefreshAction || mGetAds == null) {
+        if (isNeedToLoadStartPage || mGetAds == null) {
 
             numPage = FIRST_PAGE;
         } else {
 
             if (mGetAds.getMeta().getCurrentPage() <= mGetAds.getMeta().getTotalCount()) {
 
-                numPage = (mGetAds.getMeta().getCurrentPage() + 1) + "";
+                numPage = getNumPage(mGetAds.getLinks().getNext().getHref());
             } else {
 
                 numPage = "";
@@ -123,16 +128,17 @@ public class AntresolAPIManager {
                         mGetAds = result;
                     else {
 
+                        List<Ad> prevPageAdList = mGetAds.getData();
                         mGetAds = result;
-                        if (!FIRST_PAGE.equalsIgnoreCase(numPage)) {
+                        if (!isNeedToLoadStartPage) {
 
-                            List<Ad> prevPageAdList = mGetAds.getData();
                             mGetAds.getData().addAll(prevPageAdList);
                         }
+                        prevPageAdList = null;
                     }
 
                     if (listener != null)
-                        listener.onSuccess(result);
+                        listener.onSuccess(mGetAds);
                 } catch (Throwable th) {
 
                     Log.e(TAG, "failed! ", th);

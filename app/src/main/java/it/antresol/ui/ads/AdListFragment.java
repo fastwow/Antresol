@@ -18,6 +18,7 @@ import it.antresol.api.AntresolAPIManager;
 import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.GetAds;
 import it.antresol.ui.BaseFragment;
+import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 
 /**
  * Created by artem on 2/19/15.
@@ -42,11 +43,6 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         return instance;
     }
 
-    private void refreshItems() {
-
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -58,6 +54,14 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         mAdListRecyclerView.setLayoutManager(mLayoutManager);
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdListRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
+
+            @Override
+            public void onLoadMore(int currentPage) {
+
+                AntresolAPIManager.getInstance().getAdList(false, AdListFragment.this);
+            }
+        });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
