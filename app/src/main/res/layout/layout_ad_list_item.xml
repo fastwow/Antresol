@@ -27,21 +27,39 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_margin="10dp"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="3dp"
+                    android:layout_toLeftOf="@+id/like"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="title"
+                    android:textColor="#FCFCFC"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@id/like"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_favorite_outline" />
+            </RelativeLayout>
 
         </FrameLayout>
-
 
         <TextView
             android:id="@+id/price"
@@ -49,10 +67,10 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/price"
             android:layout_gravity="bottom"
-
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:gravity="left"
             android:maxLines="1"
@@ -66,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:background="#D2D0D0" />
 
         <RelativeLayout
@@ -104,15 +123,17 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@id/more"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <TextView
+                android:id="@+id/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:src="@drawable/ic_more" />
+                android:gravity="center"
+                android:text="•••"
+                android:textColor="#656161"
+                android:textSize="26sp" />
 
         </RelativeLayout>
     </LinearLayout>
