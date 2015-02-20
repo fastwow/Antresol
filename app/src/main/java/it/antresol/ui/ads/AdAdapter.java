@@ -2,6 +2,7 @@ package it.antresol.ui.ads;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import it.antresol.model.Ad;
  * Created by artem on 2/19/15.
  */
 public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
+
+    private static final String TAG = AdAdapter.class.getSimpleName();
 
     public Picasso mPicasso;
 
@@ -76,9 +79,17 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         }
     }
 
-    public void updateAdList(List<Ad> adList) {
+    public void addAll(List<Ad> adList) {
+
+        Log.d(TAG, "getAdList.size4 = " + adList.size());
+
+        mAdList.addAll(adList);
+    }
+
+    public void clear() {
+
+        Log.d(TAG, "clear");
 
         mAdList.clear();
-        mAdList.addAll(adList);
     }
 }

@@ -28,4 +28,12 @@ public class Link extends BaseModel {
 
         this.href = href;
     }
+
+    @Override
+    public String toString() {
+
+        return "Link{" +
+                "href='" + href + '\'' +
+                '}';
+    }
 }

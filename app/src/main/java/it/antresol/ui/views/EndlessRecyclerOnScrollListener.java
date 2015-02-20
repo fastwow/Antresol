@@ -67,9 +67,10 @@ public abstract class EndlessRecyclerOnScrollListener extends
         }
     }
 
-    public void setLoading(boolean loading) {
+    public void resetLoading() {
 
-        this.loading = loading;
+        previousTotal = 0;
+        loading = false;
     }
 
     public abstract void onLoadMore(int currentPage);

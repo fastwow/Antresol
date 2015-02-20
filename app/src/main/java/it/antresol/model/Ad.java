@@ -298,4 +298,32 @@ public class Ad extends BaseModel {
 
         this.firstThreeCommentList = firstThreeCommentList;
     }
+
+    @Override
+    public String toString() {
+
+        return "Ad{" +
+                "title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                ", price=" + price +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", createAt=" + createAt +
+                ", updatedAt=" + updatedAt +
+                ", deleteReason='" + deleteReason + '\'' +
+                ", sex=" + sex +
+                ", adId=" + adId +
+                ", user=" + user +
+                ", rank=" + rank +
+                ", categoryId=" + categoryId +
+                ", countryId=" + countryId +
+                ", likesCount=" + likesCount +
+                ", isDelete=" + isDelete +
+                ", isDeactivated='" + isDeactivated + '\'' +
+                ", commentsCount=" + commentsCount +
+                ", image=" + image +
+                ", imageList=" + imageList +
+                ", firstThreeCommentList=" + firstThreeCommentList +
+                '}';
+    }
 }

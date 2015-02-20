@@ -7,23 +7,26 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.api.AntresolAPIManager;
 import it.antresol.api.IRequestStatusListener;
-import it.antresol.model.GetAds;
+import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 
 /**
  * Created by artem on 2/19/15.
  */
-public class AdListFragment extends BaseFragment implements IRequestStatusListener<GetAds> {
+public class AdListFragment extends BaseFragment implements IRequestStatusListener<List<Ad>> {
 
     private static final String TAG = AdListFragment.class.getSimpleName();
 
@@ -35,6 +38,8 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     private StaggeredGridLayoutManager mLayoutManager;
     @InjectView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private EndlessRecyclerOnScrollListener mOnScrollListener;
 
     public static Fragment newInstance() {
 
@@ -51,23 +56,23 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         ButterKnife.inject(this, mRoot);
 
         mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
-
-        mAdListRecyclerView.setLayoutManager(mLayoutManager);
-        mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdListRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
+        mOnScrollListener = new EndlessRecyclerOnScrollListener(mLayoutManager) {
 
             @Override
             public void onLoadMore(int currentPage) {
 
-                AntresolAPIManager.getInstance().getAdList(false, AdListFragment.this);
+                AntresolAPIManager.getInstance().getAdList(AdListFragment.this, false);
             }
-        });
+        };
+        mAdListRecyclerView.setLayoutManager(mLayoutManager);
+        mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onRefresh() {
 
-                AntresolAPIManager.getInstance().getAdList(true, AdListFragment.this);
+                AntresolAPIManager.getInstance().getAdList(AdListFragment.this, true);
             }
         });
         mAdAdapter = new AdAdapter(getActivity());
@@ -75,7 +80,7 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         if (mUIEventListener != null)
             mUIEventListener.showProgressBar();
-        AntresolAPIManager.getInstance().getAdList(true, this);
+        AntresolAPIManager.getInstance().getAdList(this, true);
 
         return mRoot;
     }
@@ -94,18 +99,25 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
             mUIEventListener.showProgressBar();
     }
 
-    @Override
-    public void onSuccess(GetAds result) {
 
+    @Override
+    public void onSuccess(List<Ad> result, boolean isNeedToRefreshData) {
+
+        Log.d(TAG, "getAdList.size3 = " + result.size());
+        if (isNeedToRefreshData) {
+
+            mOnScrollListener.resetLoading();
+            mAdAdapter.clear();
+        }
+        if (result != null)
+            mAdAdapter.addAll(result);
+        mAdAdapter.notifyDataSetChanged();
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);
-        if (result != null) {
 
-            mAdAdapter.updateAdList(result.getData());
-            mAdAdapter.notifyDataSetChanged();
-        }
+        Log.d(TAG, "getAdList.size777 = " + mAdAdapter.getItemCount());
     }
 
     @Override

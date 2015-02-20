@@ -56,4 +56,14 @@ public class Links extends BaseModel {
 
         this.last = last;
     }
+
+    @Override
+    public String toString() {
+
+        return "Links{" +
+                "self=" + self +
+                ", next=" + next +
+                ", last=" + last +
+                '}';
+    }
 }

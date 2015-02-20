@@ -70,4 +70,14 @@ public class Meta extends BaseModel {
 
         this.perPage = perPage;
     }
+
+    @Override
+    public String toString() {
+        return "Meta{" +
+                "totalCount=" + totalCount +
+                ", pageCount=" + pageCount +
+                ", currentPage=" + currentPage +
+                ", perPage=" + perPage +
+                '}';
+    }
 }

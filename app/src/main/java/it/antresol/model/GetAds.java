@@ -63,4 +63,14 @@ public class GetAds extends BaseModel {
 
         this.links = links;
     }
+
+    @Override
+    public String toString() {
+
+        return "GetAds{" +
+                "data=" + data +
+                ", meta=" + meta +
+                ", links=" + links +
+                '}';
+    }
 }

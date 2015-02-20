@@ -7,6 +7,7 @@ import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import it.antresol.model.Ad;
@@ -99,7 +100,7 @@ public class AntresolAPIManager {
         return url.split("page=")[1];
     }
 
-    public void getAdList(final boolean isNeedToLoadStartPage, final IRequestStatusListener listener) {
+    public void getAdList(final IRequestStatusListener listener, final boolean isNeedToLoadStartPage) {
 
         final String numPage;
         if (isNeedToLoadStartPage || mGetAds == null) {
@@ -114,7 +115,7 @@ public class AntresolAPIManager {
 
                 numPage = "";
                 if (listener != null)
-                    listener.onSuccess(null);
+                    listener.onSuccess(null, false);
             }
         }
         mAntresolAPIServiceService.getAdList(numPage, new Callback<GetAds>() {
@@ -122,33 +123,33 @@ public class AntresolAPIManager {
             @Override
             public void success(GetAds result, Response response) {
 
-                try {
+                Log.d(TAG, "getAdList.size1 = " + result.getData().size());
 
-                    if (mGetAds == null)
-                        mGetAds = result;
-                    else {
+                List<Ad> toResult = null;
+                toResult = new LinkedList<Ad>(result.getData());
+                if (mGetAds == null) {
 
-                        List<Ad> prevPageAdList = mGetAds.getData();
-                        mGetAds = result;
-                        if (!isNeedToLoadStartPage) {
+                    mGetAds = result;
+                } else {
 
-                            mGetAds.getData().addAll(prevPageAdList);
-                        }
-                        prevPageAdList = null;
+                    List<Ad> prevPageAdList = mGetAds.getData();
+                    mGetAds = result;
+                    if (!isNeedToLoadStartPage) {
+
+                        mGetAds.getData().addAll(prevPageAdList);
                     }
+                    prevPageAdList = null;
+                }
+                if (listener != null) {
 
-                    if (listener != null)
-                        listener.onSuccess(mGetAds);
-                } catch (Throwable th) {
-
-                    Log.e(TAG, "failed! ", th);
-                    if (listener != null)
-                        listener.onError();
+                    listener.onSuccess(toResult, isNeedToLoadStartPage);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
+
+                Log.d(TAG, "getAdList.failure. error = " + error);
 
                 if (listener != null)
                     listener.onError();

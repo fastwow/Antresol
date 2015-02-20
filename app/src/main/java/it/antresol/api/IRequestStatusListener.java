@@ -1,15 +1,13 @@
 package it.antresol.api;
 
-import it.antresol.model.BaseModel;
-
 /**
  * Created by artem on 2/19/15.
  */
-public interface IRequestStatusListener<T extends BaseModel> {
+public interface IRequestStatusListener<T> {
 
     void startFetchDataFromServer();
 
-    void onSuccess(T result);
+    void onSuccess(T result, boolean isNeedToRefreshData);
 
     void onError();
 
