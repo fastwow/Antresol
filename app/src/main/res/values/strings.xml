@@ -6,4 +6,6 @@
 
     <string name="error_message_default">Something happened</string>
 
+    <string name="currency_uah">UAH</string>
+
 </resources>

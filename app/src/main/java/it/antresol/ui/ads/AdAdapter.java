@@ -2,7 +2,6 @@ package it.antresol.ui.ads;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +26,16 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
     private static final String TAG = AdAdapter.class.getSimpleName();
 
     public Picasso mPicasso;
-
     private List<Ad> mAdList;
+    private Context mContext;
 
     public AdAdapter(Context context) {
 
         mPicasso = new Picasso.Builder(context.getApplicationContext())
-                .indicatorsEnabled(true)
+                .indicatorsEnabled(false)
                 .build();
         mAdList = new LinkedList<Ad>();
+        mContext = context;
     }
 
     @Override
@@ -56,6 +56,7 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
                 .error(android.R.drawable.stat_notify_error)
                 .placeholder(android.R.drawable.stat_notify_sync).into(holder.mAdImageView);
         holder.mTitleTv.setText(item.getTitle());
+        holder.mPriceTv.setText(item.getPrice() + " " + mContext.getString(R.string.currency_uah));
     }
 
     @Override
@@ -72,6 +73,9 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         @InjectView(R.id.title)
         TextView mTitleTv;
 
+        @InjectView(R.id.price)
+        TextView mPriceTv;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -81,14 +85,10 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
 
     public void addAll(List<Ad> adList) {
 
-        Log.d(TAG, "getAdList.size4 = " + adList.size());
-
         mAdList.addAll(adList);
     }
 
     public void clear() {
-
-        Log.d(TAG, "clear");
 
         mAdList.clear();
     }
