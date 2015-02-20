@@ -7,10 +7,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 
 import java.util.List;
 
@@ -38,8 +40,24 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     private StaggeredGridLayoutManager mLayoutManager;
     @InjectView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+    @InjectView(R.id.add_fab)
+    FloatingActionButton mAddFloatingActionButton;
 
     private EndlessRecyclerOnScrollListener mOnScrollListener;
+
+    private ScrollDirectionListener mScrollDirectionListener = new ScrollDirectionListener() {
+        @Override
+        public void onScrollDown() {
+
+            // empty
+        }
+
+        @Override
+        public void onScrollUp() {
+
+            // empty
+        }
+    };
 
     public static Fragment newInstance() {
 
@@ -67,6 +85,7 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         mAdListRecyclerView.setLayoutManager(mLayoutManager);
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
+        mAddFloatingActionButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
@@ -103,21 +122,21 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     @Override
     public void onSuccess(List<Ad> result, boolean isNeedToRefreshData) {
 
-        Log.d(TAG, "getAdList.size3 = " + result.size());
-        if (isNeedToRefreshData) {
-
-            mOnScrollListener.resetLoading();
+        if (isNeedToRefreshData)
             mAdAdapter.clear();
-        }
+
         if (result != null)
             mAdAdapter.addAll(result);
         mAdAdapter.notifyDataSetChanged();
+
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
+
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);
 
-        Log.d(TAG, "getAdList.size777 = " + mAdAdapter.getItemCount());
+        if (isNeedToRefreshData)
+            mOnScrollListener.resetLoading();
     }
 
     @Override
@@ -125,6 +144,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);
+
+        mOnScrollListener.resetLoading();
+
         if (mUIEventListener != null)
             mUIEventListener.showErrorMessage();
     }
@@ -134,6 +156,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);
+
+        mOnScrollListener.resetLoading();
+
         if (mUIEventListener != null)
             mUIEventListener.showErrorMessage(text);
     }

@@ -3,4 +3,9 @@
 
     <color name="a_400">#1DE9B6</color>
     <color name="A700">#00BFA5</color>
+
+
+    <color name="ripple">#A7FFEB</color>
+    <color name="accent">#64FFDA</color>
+    <color name="accent_pressed">#1DE9B6</color>
 </resources>
