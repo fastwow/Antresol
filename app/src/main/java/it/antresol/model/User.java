@@ -69,6 +69,11 @@ public class User extends BaseModel {
         this.phone = phone;
     }
 
+    public char getLastName1Sym() {
+
+        return lastName.charAt(0);
+    }
+
     public String getLastName() {
 
         return lastName;
