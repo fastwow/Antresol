@@ -84,8 +84,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         };
         mAdListRecyclerView.setLayoutManager(mLayoutManager);
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
-        mAddFloatingActionButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
+//        mAddFloatingActionButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
