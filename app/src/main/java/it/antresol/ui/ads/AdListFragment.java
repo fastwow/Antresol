@@ -45,6 +45,16 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
     private EndlessRecyclerOnScrollListener mOnScrollListener;
 
+    private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            int itemPosition = mAdListRecyclerView.getChildPosition(v);
+            Ad adItem = mAdAdapter.getItem(itemPosition);
+        }
+    };
+
     private ScrollDirectionListener mScrollDirectionListener = new ScrollDirectionListener() {
         @Override
         public void onScrollDown() {
@@ -95,7 +105,7 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                 AntresolAPIManager.getInstance().getAdList(AdListFragment.this, true);
             }
         });
-        mAdAdapter = new AdAdapter(getActivity());
+        mAdAdapter = new AdAdapter(getActivity(), mItemOnClickListener);
         mAdListRecyclerView.setAdapter(mAdAdapter);
 
         if (mUIEventListener != null)
@@ -132,6 +142,12 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
+
+        if (mAdAdapter.getItemCount() > 0) {
+
+            if (mUIEventListener != null)
+                mUIEventListener.hideErrorMessage();
+        }
 
         if (mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(false);

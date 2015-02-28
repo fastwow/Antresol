@@ -32,20 +32,21 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
     public Picasso mPicasso;
     private List<Ad> mAdList;
     private Context mContext;
-
+    private View.OnClickListener mItemOnClickListener = null;
 
     public static float dipToPixels(Context context, float dipValue) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
     }
 
-    public AdAdapter(Context context) {
+    public AdAdapter(Context context, View.OnClickListener itemOnClickListener) {
 
         mPicasso = new Picasso.Builder(context.getApplicationContext())
                 .indicatorsEnabled(false)
                 .build();
         mAdList = new LinkedList<Ad>();
         mContext = context;
+        mItemOnClickListener = itemOnClickListener;
     }
 
     @Override
@@ -53,8 +54,8 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_ad_list_item, parent, false);
-        ViewHolder vh = new ViewHolder(itemView);
-        return vh;
+        itemView.setOnClickListener(mItemOnClickListener);
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -103,6 +104,9 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         @InjectView(R.id.name)
         TextView mFirstNameTv;
 
+        @InjectView(R.id.more)
+        View mMoreView;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -113,6 +117,11 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
     public void addAll(List<Ad> adList) {
 
         mAdList.addAll(adList);
+    }
+
+    public Ad getItem(int pos) {
+
+        return mAdList.get(pos);
     }
 
     public void clear() {
