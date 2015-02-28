@@ -31,7 +31,7 @@ public class AdUserOptionFragment extends BaseDialogFragment {
     @InjectView(R.id.make_call)
     ImageView mMakeCallImageView;
 
-    public static Fragment newInstance() {
+    public static AdUserOptionFragment newInstance() {
 
         AdUserOptionFragment instance = new AdUserOptionFragment();
 
