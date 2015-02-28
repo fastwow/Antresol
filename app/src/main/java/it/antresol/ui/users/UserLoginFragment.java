@@ -1,5 +1,7 @@
 package it.antresol.ui.users;
 
+import android.support.v4.app.Fragment;
+
 import it.antresol.ui.BaseFragment;
 
 /**
@@ -8,4 +10,10 @@ import it.antresol.ui.BaseFragment;
 public class UserLoginFragment extends BaseFragment {
 
 
+    public static Fragment newInstance() {
+
+        UserLoginFragment instance = new UserLoginFragment();
+
+        return instance;
+    }
 }
