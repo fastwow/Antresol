@@ -2,7 +2,6 @@ package it.antresol.ui.ads;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,11 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.ui.BaseDialogFragment;
-import it.antresol.ui.BaseFragment;
 
 /**
  * Created by fastwow on 25.02.2015.
  */
-public class AdUserOptionFragment extends BaseDialogFragment {
+public class AdOptionDialogFragment extends BaseDialogFragment {
 
     @InjectView(R.id.close)
     ImageView mCloseImageView;
@@ -31,9 +29,9 @@ public class AdUserOptionFragment extends BaseDialogFragment {
     @InjectView(R.id.make_call)
     ImageView mMakeCallImageView;
 
-    public static AdUserOptionFragment newInstance() {
+    public static AdOptionDialogFragment newInstance() {
 
-        AdUserOptionFragment instance = new AdUserOptionFragment();
+        AdOptionDialogFragment instance = new AdOptionDialogFragment();
 
         return instance;
     }
