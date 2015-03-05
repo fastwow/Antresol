@@ -54,7 +54,11 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_ad_list_item, parent, false);
+
         itemView.setOnClickListener(mItemOnClickListener);
+        itemView.findViewById(R.id.avatar_content).setOnClickListener(mItemOnClickListener);
+        itemView.findViewById(R.id.more).setOnClickListener(mItemOnClickListener);
+
         return new ViewHolder(itemView);
     }
 

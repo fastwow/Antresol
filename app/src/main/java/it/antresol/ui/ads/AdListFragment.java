@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,8 +51,18 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         @Override
         public void onClick(View v) {
 
-            int itemPosition = mAdListRecyclerView.getChildPosition(v);
-            Ad adItem = mAdAdapter.getItem(itemPosition);
+            Integer AdId = (Integer) v.getTag();
+            switch (v.getId()) {
+
+                case R.id.avatar_content:
+
+                    break;
+                case R.id.more:
+
+                    break;
+                default:
+                    break;
+            }
         }
     };
 
