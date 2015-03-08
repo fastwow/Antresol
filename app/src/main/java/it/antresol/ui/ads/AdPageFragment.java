@@ -29,6 +29,6 @@ public class AdPageFragment extends BaseFragment {
 
         ButterKnife.inject(this, mRoot);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return mRoot;
     }
 }

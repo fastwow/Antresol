@@ -10,12 +10,17 @@ import android.widget.ImageView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
+import it.antresol.model.Ad;
 import it.antresol.ui.BaseDialogFragment;
 
 /**
  * Created by fastwow on 25.02.2015.
  */
 public class AdOptionDialogFragment extends BaseDialogFragment {
+
+    public static final String TAG = AdOptionDialogFragment.class.getSimpleName();
+
+    public static final String AD_ID_SAVED_ARG = "ad_id";
 
     @InjectView(R.id.close)
     ImageView mCloseImageView;
@@ -29,11 +34,27 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
     @InjectView(R.id.make_call)
     ImageView mMakeCallImageView;
 
-    public static AdOptionDialogFragment newInstance() {
+    private long mAdId = -1;
+
+    public static AdOptionDialogFragment newInstance(long adId) {
+
+        Bundle args = new Bundle();
+        args.putLong(AD_ID_SAVED_ARG, adId);
 
         AdOptionDialogFragment instance = new AdOptionDialogFragment();
+        instance.setArguments(args);
 
         return instance;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+
+            mAdId = getArguments().getLong(AD_ID_SAVED_ARG);
+        }
     }
 
     @Override
@@ -43,7 +64,13 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
 
         ButterKnife.inject(this, mRoot);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        mCloseImageView.setOnClickListener(mOptionButtonsOnClickListener);
+        mSendMsgImageView.setOnClickListener(mOptionButtonsOnClickListener);
+        mLikeImageView.setOnClickListener(mOptionButtonsOnClickListener);
+        mMakeCallImageView.setOnClickListener(mOptionButtonsOnClickListener);
+
+
+        return mRoot;
     }
 
     private View.OnClickListener mOptionButtonsOnClickListener = new View.OnClickListener() {

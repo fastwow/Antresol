@@ -1,8 +1,13 @@
 package it.antresol.api;
 
+import org.json.JSONObject;
+
 import it.antresol.model.GetAds;
 import retrofit.Callback;
+import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
+import retrofit.http.POST;
 import retrofit.http.Query;
 
 /**
@@ -18,4 +23,11 @@ public interface AntresolAPIService {
 
     @GET("/ads")
     void getAdList(@Query("page") String numPage, Callback<GetAds> results);
+
+    @POST("/likes")
+    void addLikes(@Body JSONObject idId, Callback<GetAds> results);
+
+    @DELETE("/likes")
+    void deleteLike(@Body JSONObject idId, Callback<GetAds> results);
+
 }

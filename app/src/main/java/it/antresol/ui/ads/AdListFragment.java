@@ -25,6 +25,7 @@ import it.antresol.api.AntresolAPIManager;
 import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
+import it.antresol.ui.users.UserProfileActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 
 /**
@@ -62,16 +63,28 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         @Override
         public void onClick(View v) {
 
-            Integer AdId = (Integer) v.getTag();
+            Long AdId = Long.valueOf(-1);
+            if (v.getTag() != null)
+                AdId = (Long) v.getTag();
+
             switch (v.getId()) {
 
-                case R.id.avatar_content:
+                case R.id.avatar_container:
+
+                    Intent UserProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
+                    startActivity(UserProfileIntent);
+                    break;
+                case R.id.like:
 
                     break;
                 case R.id.more:
 
+                    AdOptionDialogFragment.newInstance(AdId).show(getFragmentManager(), TAG);
                     break;
-                default:
+                case R.id.card_view:
+
+                    Intent AdPageIntent = new Intent(getActivity(), AdPageActivity.class);
+                    startActivity(AdPageIntent);
                     break;
             }
         }

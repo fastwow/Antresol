@@ -55,10 +55,6 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_ad_list_item, parent, false);
 
-        itemView.setOnClickListener(mItemOnClickListener);
-        itemView.findViewById(R.id.avatar_content).setOnClickListener(mItemOnClickListener);
-        itemView.findViewById(R.id.more).setOnClickListener(mItemOnClickListener);
-
         return new ViewHolder(itemView);
     }
 
@@ -76,6 +72,18 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
 
         holder.mPriceTv.setText(item.getPrice() + " " + mContext.getString(R.string.currency_uah));
 
+        holder.mMoreView.setOnClickListener(mItemOnClickListener);
+        holder.mMoreView.setTag(item.getAdId());
+
+        holder.mAvatarContainerView.setOnClickListener(mItemOnClickListener);
+        holder.mAvatarContainerView.setTag(item.getAdId());
+
+        holder.mRoot.setOnClickListener(mItemOnClickListener);
+        holder.mRoot.setTag(item.getAdId());
+
+        holder.mLikeView.setOnClickListener(mItemOnClickListener);
+        holder.mLikeView.setTag(item.getAdId());
+
         mPicasso.load(user != null ? user.getAvatar() : "")
                 .error(android.R.drawable.stat_notify_error)
                 .placeholder(android.R.drawable.stat_notify_sync)
@@ -92,6 +100,8 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        View mRoot = null;
 
         @InjectView(R.id.image)
         ImageView mAdImageView;
@@ -111,10 +121,17 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         @InjectView(R.id.more)
         View mMoreView;
 
+        @InjectView(R.id.avatar_container)
+        View mAvatarContainerView;
+
+        @InjectView(R.id.like)
+        View mLikeView;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.inject(this, itemView);
+            mRoot = itemView;
+            ButterKnife.inject(this, mRoot);
         }
     }
 

@@ -39,6 +39,11 @@
         <activity
             android:name=".ui.users.UserLoginActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.users.UserProfileActivity"
+            android:screenOrientation="portrait"></activity>
+
         <!--
         <provider
             android:name=".model.database.AntresolContentProvider"
