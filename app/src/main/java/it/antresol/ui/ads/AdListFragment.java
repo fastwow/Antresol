@@ -1,5 +1,6 @@
 package it.antresol.ui.ads;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -42,9 +43,19 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     @InjectView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @InjectView(R.id.add_fab)
-    FloatingActionButton mAddFloatingActionButton;
+    FloatingActionButton mFAB;
 
     private EndlessRecyclerOnScrollListener mOnScrollListener;
+
+    private View.OnClickListener mFABOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(getActivity(), CreateAdActivity.class);
+            startActivity(intent);
+        }
+    };
 
     private View.OnClickListener mItemOnClickListener = new View.OnClickListener() {
 
@@ -107,7 +118,8 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
-//        mAddFloatingActionButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
+//        mFABButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
+        mFAB.setOnClickListener(mFABOnClickListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override

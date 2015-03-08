@@ -8,4 +8,12 @@
 
     <string name="currency_uah">UAH</string>
 
+    <string name="category"></string>
+    <string name="category_hint">Укажите категорию для того, что бы люди могли найти ваш товар быстрее</string>
+    <string name="add_phone">Добавить телефон</string>
+    <string name="ad_info">Информация о товаре</string>
+    <string name="ad_short_desc_hint">Краткое описание (140 символов)</string>
+    <string name="ad_title_hint">Введите название</string>
+    <string name="price">Стоимость</string>
+    <string name="price_default_hint">00</string>
 </resources>
