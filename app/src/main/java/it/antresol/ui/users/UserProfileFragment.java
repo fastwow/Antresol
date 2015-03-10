@@ -8,14 +8,17 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.api.AntresolAPIManager;
+import it.antresol.model.User;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
-import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
+import it.antresol.utils.GlobalArgs;
 
 /**
  * Created by fastwow on 28.02.2015.
@@ -31,11 +34,61 @@ public class UserProfileFragment extends BaseFragment {
     private AdAdapter mAdAdapter;
     private StaggeredGridLayoutManager mLayoutManager;
 
-    public static UserProfileFragment newInstance() {
+    private User mUser;
+
+    @InjectView(R.id.avatar)
+    ImageView mAvatarImageView;
+
+    @InjectView(R.id.name)
+    TextView mNameTv;
+
+    @InjectView(R.id.sale_counter)
+    TextView mSaleCounterTv;
+
+    @InjectView(R.id.buy_counter)
+    TextView mBuyCounterTv;
+
+    @InjectView(R.id.since_date)
+    TextView mSinceDateTv;
+
+    @InjectView(R.id.location)
+    TextView mLocationTv;
+
+    public static UserProfileFragment newInstance(long userId) {
 
         UserProfileFragment instance = new UserProfileFragment();
 
+        Bundle args = new Bundle();
+        args.putLong(GlobalArgs.USER_ID, userId);
+
+        instance.setArguments(args);
+
         return instance;
+    }
+
+    private void initViews() {
+
+
+        mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
+        mAdListRecyclerView.setLayoutManager(mLayoutManager);
+        mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        if (mUser != null) {
+
+            mNameTv.setText(mUser.getFirstName() + " " + mUser.getLastName1Sym() + ".");
+        }
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+
+            Long userId = getArguments().getLong(GlobalArgs.USER_ID);
+            mUser = AntresolAPIManager.getInstance().getUserFromCache(userId);
+        }
     }
 
     @Override
@@ -45,9 +98,7 @@ public class UserProfileFragment extends BaseFragment {
 
         ButterKnife.inject(this, mRoot);
 
-        mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
-        mAdListRecyclerView.setLayoutManager(mLayoutManager);
-        mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        initViews();
 
         return mRoot;
     }

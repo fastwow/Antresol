@@ -7,11 +7,13 @@ import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import it.antresol.model.Ad;
 import it.antresol.model.GetAds;
+import it.antresol.model.User;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -31,14 +33,16 @@ public class AntresolAPIManager {
     private static AntresolAPIManager mInstance;
 
     //Singleton Instance of our Rest Client
-    private AntresolAPIService mAntresolAPIServiceService;
+    private AntresolAPIService mAntresolAPIService;
     private Context mContext;
 
     private GetAds mGetAds = null;
 
+    private HashMap<Long, User> mCachedUsersMap = null;
+
     private AntresolAPIManager(Context context) {
 
-        if (mAntresolAPIServiceService == null) {
+        if (mAntresolAPIService == null) {
 
             OkHttpClient httpClient = new OkHttpClient();
             try {
@@ -57,9 +61,11 @@ public class AntresolAPIManager {
 //                    .setConverter(new GsonConverter(gson))
                     .build();
 
-            mAntresolAPIServiceService = adapter.create(AntresolAPIService.class);
+            mAntresolAPIService = adapter.create(AntresolAPIService.class);
 
             mContext = context;
+
+            mCachedUsersMap = new HashMap<>();
         }
 
     }
@@ -95,6 +101,19 @@ public class AntresolAPIManager {
     }
     */
 
+    public void putUserToCache(User user) {
+
+        if (user != null) {
+
+            mCachedUsersMap.put(Long.valueOf(user.getUserId()), user);
+        }
+    }
+
+    public User getUserFromCache(Long id) {
+
+        return mCachedUsersMap.get(id);
+    }
+
     private String getNumPage(String url) {
 
         return url.split("page=")[1];
@@ -118,18 +137,17 @@ public class AntresolAPIManager {
                     listener.onSuccess(null, false);
             }
         }
-        mAntresolAPIServiceService.getAdList(numPage, new Callback<GetAds>() {
+        mAntresolAPIService.getAdList(numPage, new Callback<GetAds>() {
 
             @Override
             public void success(GetAds result, Response response) {
-
-                Log.d(TAG, "getAdList.size1 = " + result.getData().size());
 
                 List<Ad> toResult = null;
                 toResult = new LinkedList<Ad>(result.getData());
                 if (mGetAds == null) {
 
                     mGetAds = result;
+                    mCachedUsersMap.clear();
                 } else {
 
                     List<Ad> prevPageAdList = mGetAds.getData();
@@ -137,6 +155,9 @@ public class AntresolAPIManager {
                     if (!isNeedToLoadStartPage) {
 
                         mGetAds.getData().addAll(prevPageAdList);
+                    } else {
+
+                        mCachedUsersMap.clear();
                     }
                     prevPageAdList = null;
                 }

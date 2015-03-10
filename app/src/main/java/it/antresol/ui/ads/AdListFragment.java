@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.users.UserProfileActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
+import it.antresol.utils.GlobalArgs;
 
 /**
  * Created by artem on 2/19/15.
@@ -63,23 +63,24 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         @Override
         public void onClick(View v) {
 
-            Long AdId = Long.valueOf(-1);
+            Long argId = Long.valueOf(-1);
             if (v.getTag() != null)
-                AdId = (Long) v.getTag();
+                argId = (Long) v.getTag();
 
             switch (v.getId()) {
 
                 case R.id.avatar_container:
 
-                    Intent UserProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
-                    startActivity(UserProfileIntent);
+                    Intent userProfileIntent = new Intent(getActivity(), UserProfileActivity.class);
+                    userProfileIntent.putExtra(GlobalArgs.USER_ID, argId);
+                    startActivity(userProfileIntent);
                     break;
                 case R.id.like:
 
                     break;
                 case R.id.more:
 
-                    AdOptionDialogFragment.newInstance(AdId).show(getFragmentManager(), TAG);
+                    AdOptionDialogFragment.newInstance(argId).show(getFragmentManager(), TAG);
                     break;
                 case R.id.card_view:
 

@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
+import it.antresol.api.AntresolAPIManager;
 import it.antresol.model.Ad;
 import it.antresol.model.User;
 import it.antresol.ui.views.RoundedTransformation;
@@ -76,7 +77,8 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         holder.mMoreView.setTag(item.getAdId());
 
         holder.mAvatarContainerView.setOnClickListener(mItemOnClickListener);
-        holder.mAvatarContainerView.setTag(item.getAdId());
+        AntresolAPIManager.getInstance().putUserToCache(user);
+        holder.mAvatarContainerView.setTag(user.getUserId());
 
         holder.mRoot.setOnClickListener(mItemOnClickListener);
         holder.mRoot.setTag(item.getAdId());

@@ -1,12 +1,15 @@
 package it.antresol.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by artem on 2/12/15.
  */
-public class User extends BaseModel {
+public class User extends BaseModel implements Parcelable {
 
     @SerializedName("user_id")
     @Expose
@@ -37,6 +40,15 @@ public class User extends BaseModel {
         this.phone = phone;
         this.lastName = lastName;
         this.firstName = firstName;
+    }
+
+    private User(Parcel in) {
+
+        userId = in.readInt();
+        avatar = in.readString();
+        phone = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
     }
 
     public long getUserId() {
@@ -93,4 +105,31 @@ public class User extends BaseModel {
 
         this.firstName = firstName;
     }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+
+        out.writeLong(userId);
+        out.writeString(avatar);
+        out.writeString(phone);
+        out.writeString(firstName);
+        out.writeString(lastName);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR
+            = new Parcelable.Creator<User>() {
+
+        public User createFromParcel(Parcel in) {
+
+            return new User(in);
+        }
+
+        public User[] newArray(int size) {
+
+            return new User[size];
+        }
+    };
 }
