@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 import it.antresol.R;
 import it.antresol.ui.BaseActivityBarActivity;
-import it.antresol.ui.users.UserLoginFragment;
+import it.antresol.utils.GlobalArgs;
 
 /**
  * Created by fastwow on 28.02.2015.
@@ -18,9 +18,17 @@ public class AdPageActivity extends BaseActivityBarActivity {
 
         if (savedInstanceState == null) {
 
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, AdPageFragment.newInstance())
-                    .commit();
+            if (getIntent() == null || getIntent().getExtras() == null) {
+
+                finish();
+                return;
+            } else {
+
+                long adId = getIntent().getExtras().getLong(GlobalArgs.AD_ID);
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, AdPageFragment.newInstance(adId))
+                        .commit();
+            }
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

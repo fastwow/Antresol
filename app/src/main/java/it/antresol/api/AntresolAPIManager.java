@@ -39,6 +39,13 @@ public class AntresolAPIManager {
     private GetAds mGetAds = null;
 
     private HashMap<Long, User> mCachedUsersMap = null;
+    private HashMap<Long, Ad> mCachedAdsMap = null;
+
+    private void initCache() {
+
+        mCachedUsersMap = new HashMap<>();
+        mCachedAdsMap = new HashMap<>();
+    }
 
     private AntresolAPIManager(Context context) {
 
@@ -65,7 +72,7 @@ public class AntresolAPIManager {
 
             mContext = context;
 
-            mCachedUsersMap = new HashMap<>();
+            initCache();
         }
 
     }
@@ -109,10 +116,30 @@ public class AntresolAPIManager {
         }
     }
 
+    public void putAdToCache(Ad ad) {
+
+        if (ad != null) {
+
+            mCachedAdsMap.put(Long.valueOf(ad.getAdId()), ad);
+        }
+    }
+
     public User getUserFromCache(Long id) {
 
         return mCachedUsersMap.get(id);
     }
+
+    public Ad getAdFromCache(Long id) {
+
+        return mCachedAdsMap.get(id);
+    }
+
+    private void clearCache() {
+
+        mCachedUsersMap.clear();
+        mCachedAdsMap.clear();
+    }
+
 
     private String getNumPage(String url) {
 
@@ -147,7 +174,7 @@ public class AntresolAPIManager {
                 if (mGetAds == null) {
 
                     mGetAds = result;
-                    mCachedUsersMap.clear();
+                    clearCache();
                 } else {
 
                     List<Ad> prevPageAdList = mGetAds.getData();
@@ -157,7 +184,7 @@ public class AntresolAPIManager {
                         mGetAds.getData().addAll(prevPageAdList);
                     } else {
 
-                        mCachedUsersMap.clear();
+                        clearCache();
                     }
                     prevPageAdList = null;
                 }

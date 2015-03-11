@@ -55,7 +55,7 @@ public class UserProfileFragment extends BaseFragment {
     @InjectView(R.id.location)
     TextView mLocationTv;
 
-    @InjectView(R.id.blur_bg)
+//    @InjectView(R.id.blur_bg)
     ImageView mBlurBgImageView;
 
     public static UserProfileFragment newInstance(long userId) {
@@ -86,6 +86,12 @@ public class UserProfileFragment extends BaseFragment {
                     .placeholder(android.R.drawable.stat_notify_sync)
 //                    .transform(new RoundedTransformation())
                     .into(mAvatarImageView);
+
+//            mPicasso.load(mUser.getAvatar())
+//                    .error(android.R.drawable.stat_notify_error)
+//                    .placeholder(android.R.drawable.stat_notify_sync)
+//                    .transform(new RoundedTransformation())
+//                    .into(mBlurBgImageView);
         }
     }
 

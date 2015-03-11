@@ -4,11 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--
+
     <ImageView
         android:id="@+id/blur_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@null" />
+        android:alpha="200"
+        android:scaleType="fitXY"
+        android:src="@drawable/abc_btn_radio_material" />
+-->
+
 
     <ScrollView
         android:id="@+id/scroll_container"

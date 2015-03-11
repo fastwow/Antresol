@@ -84,8 +84,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                     break;
                 case R.id.card_view:
 
-                    Intent AdPageIntent = new Intent(getActivity(), AdPageActivity.class);
-                    startActivity(AdPageIntent);
+                    Intent adPageIntent = new Intent(getActivity(), AdPageActivity.class);
+                    adPageIntent.putExtra(GlobalArgs.AD_ID, argId);
+                    startActivity(adPageIntent);
                     break;
             }
         }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ public class BaseFragment extends Fragment {
     protected View mRoot = null;
     protected IUIEventListener mUIEventListener = null;
 
+    private ActionBar mActionBar;
+
     protected Picasso mPicasso;
 
     @Override
@@ -30,6 +34,7 @@ public class BaseFragment extends Fragment {
         try {
 
             mUIEventListener = (IUIEventListener) activity;
+            mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
         } catch (Throwable th) {
 
             Log.e(TAG, "failed ", th);
@@ -51,5 +56,10 @@ public class BaseFragment extends Fragment {
         super.onDetach();
 
         mUIEventListener = null;
+    }
+
+    public ActionBar getActionBar() {
+
+        return mActionBar;
     }
 }

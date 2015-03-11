@@ -74,6 +74,7 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         holder.mPriceTv.setText(item.getPrice() + " " + mContext.getString(R.string.currency_uah));
 
         holder.mMoreView.setOnClickListener(mItemOnClickListener);
+        AntresolAPIManager.getInstance().putAdToCache(item);
         holder.mMoreView.setTag(item.getAdId());
 
         holder.mAvatarContainerView.setOnClickListener(mItemOnClickListener);
