@@ -1,6 +1,7 @@
 package it.antresol.ui;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,9 @@ public class MainActivity extends BaseActivityBarActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, AdListFragment.newInstance())
                     .commit();
+
+            DialogFragment splashScreenDialogFragment = SplashScreenDialogFragment.newInstance();
+            splashScreenDialogFragment.show(getSupportFragmentManager(), SplashScreenDialogFragment.TAG);
         }
     }
 

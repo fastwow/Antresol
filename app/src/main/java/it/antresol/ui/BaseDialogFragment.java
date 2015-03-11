@@ -18,7 +18,7 @@ public class BaseDialogFragment extends DialogFragment {
 
     private static final String TAG = BaseFragment.class.getSimpleName();
 
-    protected View mRoot = null;
+    protected View mRootView = null;
     protected IUIEventListener mUIEventListener = null;
 
     @Override

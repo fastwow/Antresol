@@ -48,9 +48,9 @@ public class AdListCursorFragment extends BaseFragment {/* implements LoaderMana
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRoot = inflater.inflate(R.layout.fragment_ad_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_ad_list, container, false);
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
 
         mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
 
@@ -63,7 +63,7 @@ public class AdListCursorFragment extends BaseFragment {/* implements LoaderMana
             mUIEventListener.showProgressBar();
         getLoaderManager().initLoader(LOADER_AD_LIST_ID, null, this);
 
-        return mRoot;
+        return mRootView;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class AdListCursorFragment extends BaseFragment {/* implements LoaderMana
     public void onDestroyView() {
         super.onDestroyView();
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
     }
     */
 }

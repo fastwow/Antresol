@@ -58,16 +58,16 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRoot = inflater.inflate(R.layout.fragment_ad_user_option, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_ad_user_option, container, false);
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
 
         mCloseImageView.setOnClickListener(mOptionButtonsOnClickListener);
         mSendMsgImageView.setOnClickListener(mOptionButtonsOnClickListener);
         mLikeImageView.setOnClickListener(mOptionButtonsOnClickListener);
         mMakeCallImageView.setOnClickListener(mOptionButtonsOnClickListener);
 
-        return mRoot;
+        return mRootView;
     }
 
     private View.OnClickListener mOptionButtonsOnClickListener = new View.OnClickListener() {
