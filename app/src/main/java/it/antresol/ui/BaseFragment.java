@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by artem on 2/16/15.
  */
@@ -18,6 +20,8 @@ public class BaseFragment extends Fragment {
 
     protected View mRoot = null;
     protected IUIEventListener mUIEventListener = null;
+
+    protected Picasso mPicasso;
 
     @Override
     public void onAttach(Activity activity) {
@@ -30,6 +34,10 @@ public class BaseFragment extends Fragment {
 
             Log.e(TAG, "failed ", th);
         }
+
+        mPicasso = new Picasso.Builder(activity.getApplicationContext())
+                .indicatorsEnabled(false)
+                .build();
     }
 
     @Override

@@ -18,6 +18,7 @@ import it.antresol.api.AntresolAPIManager;
 import it.antresol.model.User;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
+import it.antresol.ui.views.RoundedTransformation;
 import it.antresol.utils.GlobalArgs;
 
 /**
@@ -54,6 +55,9 @@ public class UserProfileFragment extends BaseFragment {
     @InjectView(R.id.location)
     TextView mLocationTv;
 
+    @InjectView(R.id.blur_bg)
+    ImageView mBlurBgImageView;
+
     public static UserProfileFragment newInstance(long userId) {
 
         UserProfileFragment instance = new UserProfileFragment();
@@ -76,9 +80,14 @@ public class UserProfileFragment extends BaseFragment {
         if (mUser != null) {
 
             mNameTv.setText(mUser.getFirstName() + " " + mUser.getLastName1Sym() + ".");
+
+            mPicasso.load(mUser.getAvatar())
+                    .error(android.R.drawable.stat_notify_error)
+                    .placeholder(android.R.drawable.stat_notify_sync)
+//                    .transform(new RoundedTransformation())
+                    .into(mAvatarImageView);
         }
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

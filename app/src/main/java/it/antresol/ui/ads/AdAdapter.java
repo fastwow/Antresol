@@ -30,7 +30,7 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
 
     private static final String TAG = AdAdapter.class.getSimpleName();
 
-    public Picasso mPicasso;
+    protected Picasso mPicasso;
     private List<Ad> mAdList;
     private Context mContext;
     private View.OnClickListener mItemOnClickListener = null;
@@ -89,7 +89,7 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         mPicasso.load(user != null ? user.getAvatar() : "")
                 .error(android.R.drawable.stat_notify_error)
                 .placeholder(android.R.drawable.stat_notify_sync)
-                .transform(new RoundedTransformation())
+//                .transform(new RoundedTransformation())
                 .into(holder.mAvatarImageVIew);
 
         holder.mFirstNameTv.setText(user.getFirstName() + " " + user.getLastName1Sym() + ".");
