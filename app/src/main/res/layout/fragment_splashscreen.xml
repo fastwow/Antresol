@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/splash_screen_image"
     android:layout_height="match_parent"
-    android:scaleType="fitXY"
+    android:scaleType="centerCrop"
     android:src="@drawable/splashscreen">
 
 </ImageView>

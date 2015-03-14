@@ -77,12 +77,12 @@ public class AdPageFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRoot = inflater.inflate(R.layout.fragment_ad_page, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_ad_page, container, false);
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
 
         initViews();
 
-        return mRoot;
+        return mRootView;
     }
 }

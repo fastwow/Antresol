@@ -1,7 +1,8 @@
-package it.antresol.ui.ads;
+package it.antresol.ui.users.my;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +12,17 @@ import it.antresol.R;
 import it.antresol.ui.BaseFragment;
 
 /**
- * Created by artem on 3/7/15.
+ * Created by fastwow on 28.02.2015.
  */
-public class CreateAdFragment extends BaseFragment {
+public class MyUserLoginFragment extends BaseFragment {
 
-    private static final String TAG = CreateAdFragment.class.getSimpleName();
 
-    public static CreateAdFragment newInstance() {
+    public static final String TAG = MyUserLoginFragment.class.getSimpleName();
 
-        CreateAdFragment instance = new CreateAdFragment();
+
+    public static Fragment newInstance() {
+
+        MyUserLoginFragment instance = new MyUserLoginFragment();
 
         return instance;
     }
@@ -27,8 +30,7 @@ public class CreateAdFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        mRootView = inflater.inflate(R.layout.fragment_create_ad, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_my_user_login, container, false);
 
         ButterKnife.inject(this, mRootView);
 

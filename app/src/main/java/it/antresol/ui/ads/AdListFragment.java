@@ -26,7 +26,7 @@ import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.users.UserProfileActivity;
 import it.antresol.ui.users.my.MyUserNewsActivity;
-import it.antresol.ui.users.my.MyUserProfileActivity;
+import it.antresol.ui.users.my.MyUserActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 import it.antresol.utils.GlobalArgs;
 
@@ -75,7 +75,7 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                     break;
                 case R.id.user_profile:
 
-                    fabIntent = new Intent(getActivity(), MyUserProfileActivity.class);
+                    fabIntent = new Intent(getActivity(), MyUserActivity.class);
                     startActivity(fabIntent);
                     break;
             }
@@ -140,9 +140,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRoot = inflater.inflate(R.layout.fragment_ad_list, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_ad_list, container, false);
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
 
         mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
         mOnScrollListener = new EndlessRecyclerOnScrollListener(mLayoutManager) {
@@ -176,14 +176,14 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
             mUIEventListener.showProgressBar();
         AntresolAPIManager.getInstance().getAdList(this, true);
 
-        return mRoot;
+        return mRootView;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
     }
 
     @Override

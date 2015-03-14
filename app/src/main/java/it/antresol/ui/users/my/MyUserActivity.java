@@ -3,18 +3,36 @@ package it.antresol.ui.users.my;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import it.antresol.R;
 import it.antresol.ui.BaseActivityBarActivity;
+import it.antresol.utils.PreferenceHelper;
 
 /**
  * Created by artem on 3/14/15.
  */
-public class MyUserNewsActivity extends BaseActivityBarActivity {
+public class MyUserActivity extends BaseActivityBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (savedInstanceState == null) {
+
+            if (PreferenceHelper.getInstance(this).isUserLogged()) {
+
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, MyUserProfileFragment.newInstance())
+                        .commit();
+            } else {
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, MyUserLoginFragment.newInstance())
+                        .commit();
+            }
+        }
     }
 
     @Override

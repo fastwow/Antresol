@@ -44,15 +44,11 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".ui.users.UserLoginActivity"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
             android:name=".ui.users.UserProfileActivity"
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".ui.users.my.MyUserProfileActivity"
+            android:name=".ui.users.my.MyUserActivity"
             android:screenOrientation="portrait"></activity>
 
 

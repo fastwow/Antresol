@@ -18,7 +18,6 @@ import it.antresol.api.AntresolAPIManager;
 import it.antresol.model.User;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
-import it.antresol.ui.views.RoundedTransformation;
 import it.antresol.utils.GlobalArgs;
 
 /**
@@ -109,12 +108,12 @@ public class UserProfileFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRoot = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
-        ButterKnife.inject(this, mRoot);
+        ButterKnife.inject(this, mRootView);
 
         initViews();
 
-        return mRoot;
+        return mRootView;
     }
 }
