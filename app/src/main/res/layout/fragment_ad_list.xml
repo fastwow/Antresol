@@ -16,12 +16,36 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/add_fab"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white_24dp"
+        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorPressed="@color/accent_pressed"
+        fab:fab_colorRipple="@color/ripple" />
+
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_news"
+        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorPressed="@color/accent_pressed"
+        fab:fab_colorRipple="@color/ripple" />
+
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/user_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_user_profile"
         fab:fab_colorNormal="@color/accent"
         fab:fab_colorPressed="@color/accent_pressed"
         fab:fab_colorRipple="@color/ripple" />

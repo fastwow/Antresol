@@ -25,6 +25,8 @@ import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.users.UserProfileActivity;
+import it.antresol.ui.users.my.MyUserNewsActivity;
+import it.antresol.ui.users.my.MyUserProfileActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 import it.antresol.utils.GlobalArgs;
 
@@ -43,8 +45,13 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     private StaggeredGridLayoutManager mLayoutManager;
     @InjectView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @InjectView(R.id.add_fab)
-    FloatingActionButton mFAB;
+    @InjectView(R.id.add)
+    FloatingActionButton mAddFAB;
+    @InjectView(R.id.news)
+    FloatingActionButton mNewsFAB;
+    @InjectView(R.id.user_profile)
+    FloatingActionButton mUserProfileFAB;
+
 
     private EndlessRecyclerOnScrollListener mOnScrollListener;
 
@@ -53,8 +60,25 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(getActivity(), CreateAdActivity.class);
-            startActivity(intent);
+            Intent fabIntent = null;
+            switch (v.getId()) {
+
+                case R.id.add:
+
+                    fabIntent = new Intent(getActivity(), CreateAdActivity.class);
+                    startActivity(fabIntent);
+                    break;
+
+                case R.id.news:
+                    fabIntent = new Intent(getActivity(), MyUserNewsActivity.class);
+                    startActivity(fabIntent);
+                    break;
+                case R.id.user_profile:
+
+                    fabIntent = new Intent(getActivity(), MyUserProfileActivity.class);
+                    startActivity(fabIntent);
+                    break;
+            }
         }
     };
 
@@ -134,7 +158,9 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
 //        mFABButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
-        mFAB.setOnClickListener(mFABOnClickListener);
+        mAddFAB.setOnClickListener(mFABOnClickListener);
+        mNewsFAB.setOnClickListener(mFABOnClickListener);
+        mUserProfileFAB.setOnClickListener(mFABOnClickListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
