@@ -4,25 +4,27 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import it.antresol.R;
 
 /**
  * Created by artem on 3/12/15.
  */
-public class SplashScreenFragment extends Fragment {
+public class SplashScreenFragment extends BaseFragment {
 
     public static final String TAG = SplashScreenFragment.class.getSimpleName();
 
     private static final long DELAY_MS = 3000;
     private static final long DEBUG_DELAY_MS = 1500;
 
-    private View mRootView = null;
+    @InjectView(R.id.antresol_image)
+    ImageView mAntresolImageView;
 
     public static SplashScreenFragment newInstance() {
 
@@ -43,6 +45,12 @@ public class SplashScreenFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_splashscreen, container, false);
 
         ButterKnife.inject(this, mRootView);
+
+
+        mPicasso.load(R.drawable.splashscreen)
+//                .error(android.R.drawable.stat_notify_error)
+//                .placeholder(android.R.drawable.stat_notify_sync)
+                .into(mAntresolImageView);
 
         return mRootView;
     }

@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.ui.BaseFragment;
 
@@ -16,6 +18,8 @@ import it.antresol.ui.BaseFragment;
  */
 public class MyUserLoginFragment extends BaseFragment {
 
+    @InjectView(R.id.antresol_image)
+    ImageView mAntresolImageView;
 
     public static final String TAG = MyUserLoginFragment.class.getSimpleName();
 
@@ -33,6 +37,11 @@ public class MyUserLoginFragment extends BaseFragment {
         mRootView = inflater.inflate(R.layout.fragment_my_user_login, container, false);
 
         ButterKnife.inject(this, mRootView);
+
+        mPicasso.load(R.drawable.splashscreen)
+//                .error(android.R.drawable.stat_notify_error)
+//                .placeholder(android.R.drawable.stat_notify_sync)
+                .into(mAntresolImageView);
 
         return mRootView;
     }

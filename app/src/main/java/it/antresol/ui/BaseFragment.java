@@ -34,7 +34,9 @@ public class BaseFragment extends Fragment {
         try {
 
             mUIEventListener = (IUIEventListener) activity;
-            mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
+
+            if (getActivity() instanceof ActionBarActivity)
+                mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
         } catch (Throwable th) {
 
             Log.e(TAG, "failed ", th);
