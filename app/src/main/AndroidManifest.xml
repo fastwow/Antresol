@@ -37,14 +37,17 @@
 
         <activity
             android:name=".ui.ads.AdPageActivity"
+
             android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".ui.ads.CreateAdActivity"
+            android:label="@string/create_ad"
             android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".ui.users.UserProfileActivity"
+            android:label="@string/seller"
             android:screenOrientation="portrait"></activity>
 
         <activity
@@ -54,6 +57,7 @@
 
         <activity
             android:name=".ui.users.my.MyUserNewsActivity"
+            android:label="@string/activity"
             android:screenOrientation="portrait"></activity>
 
         <!--
