@@ -1,11 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/antresol_image"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/login_policy"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:id="@+id/login_fb_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/login_vk_container">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:background="@drawable/login_fb_btn_bg"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center|left"
+            android:paddingLeft="50dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/login_fb_btn_icon" />
+
+            <TextView
+                style="@style/LoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_fb" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/login_vk_container"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/login_policy">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.9"
+            android:background="@drawable/login_vk_btn_bg"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center|left"
+            android:paddingLeft="50dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/login_vk_btn_icon" />
+
+            <TextView
+                style="@style/LoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_vk" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/login_policy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Мы ничего не публикуем от вашего имени в социальных сетях."
+        android:textSize="10dp" />
+
+</RelativeLayout>

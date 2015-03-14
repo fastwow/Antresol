@@ -33,7 +33,8 @@ public class BaseFragment extends Fragment {
 
         try {
 
-            mUIEventListener = (IUIEventListener) activity;
+            if (getActivity() instanceof IUIEventListener)
+                mUIEventListener = (IUIEventListener) activity;
 
             if (getActivity() instanceof ActionBarActivity)
                 mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
