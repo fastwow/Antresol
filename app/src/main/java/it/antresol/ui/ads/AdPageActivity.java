@@ -26,7 +26,7 @@ public class AdPageActivity extends BaseActivityBarActivity {
 
                 long adId = getIntent().getExtras().getLong(GlobalArgs.AD_ID);
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, AdPageFragment.newInstance(adId))
+                        .replace(R.id.container, AdPageFragment.newInstance(adId))
                         .commit();
             }
         }

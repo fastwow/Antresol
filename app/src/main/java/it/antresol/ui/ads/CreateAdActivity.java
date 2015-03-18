@@ -21,7 +21,7 @@ public class CreateAdActivity extends BaseActivityBarActivity {
         if (savedInstanceState == null) {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, CreateAdFragment.newInstance())
+                    .replace(R.id.container, CreateAdFragment.newInstance())
                     .commit();
         }
     }

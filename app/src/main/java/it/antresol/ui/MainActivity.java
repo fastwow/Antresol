@@ -19,7 +19,7 @@ public class MainActivity extends BaseActivityBarActivity {
         if (savedInstanceState == null) {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, AdListFragment.newInstance())
+                    .replace(R.id.container, AdListFragment.newInstance())
                     .commit();
         }
     }

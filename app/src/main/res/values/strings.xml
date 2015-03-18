@@ -26,4 +26,6 @@
     <string name="login_fb">Войти с помощью Facebook</string>
     <string name="login_vk">Войти с помощью Вконтакте</string>
 
+    <string name="app_id">669238399825427</string>
+
 </resources>

@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.antresol.model.Ad;
+import it.antresol.model.CreateUserBody;
+import it.antresol.model.CreateUserResponse;
 import it.antresol.model.GetAds;
 import it.antresol.model.User;
 import retrofit.Callback;
@@ -144,6 +146,25 @@ public class AntresolAPIManager {
     private String getNumPage(String url) {
 
         return url.split("page=")[1];
+    }
+
+    public void createUser(final IRequestStatusListener listener, CreateUserBody user) {
+
+        mAntresolAPIService.createUser(user, new Callback<CreateUserResponse>() {
+            @Override
+            public void success(CreateUserResponse createUserResponse, Response response) {
+
+                if (listener != null)
+                    listener.onSuccess(createUserResponse);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+                if (listener != null)
+                    listener.onError();
+            }
+        });
     }
 
     public void getAdList(final IRequestStatusListener listener, final boolean isNeedToLoadStartPage) {

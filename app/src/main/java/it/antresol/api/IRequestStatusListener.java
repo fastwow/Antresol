@@ -9,6 +9,8 @@ public interface IRequestStatusListener<T> {
 
     void onSuccess(T result, boolean isNeedToRefreshData);
 
+    void onSuccess(T result);
+
     void onError();
 
     void onError(String text);

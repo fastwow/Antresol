@@ -19,7 +19,7 @@ public class SplashScreenActivity extends FragmentActivity {
         if (savedInstanceState == null) {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, SplashScreenFragment.newInstance())
+                    .replace(R.id.container, SplashScreenFragment.newInstance())
                     .commit();
         }
     }

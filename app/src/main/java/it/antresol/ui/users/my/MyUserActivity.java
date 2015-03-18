@@ -24,12 +24,12 @@ public class MyUserActivity extends BaseActivityBarActivity {
 
 
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, MyUserProfileFragment.newInstance())
+                        .replace(R.id.container, MyUserProfileFragment.newInstance())
                         .commit();
             } else {
 
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, MyUserLoginFragment.newInstance())
+                        .replace(R.id.container, MyUserLoginFragment.newInstance())
                         .commit();
             }
         }

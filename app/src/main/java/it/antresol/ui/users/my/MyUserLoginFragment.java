@@ -1,22 +1,41 @@
 package it.antresol.ui.users.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+
+import java.util.Arrays;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import it.antresol.R;
+import it.antresol.api.AntresolAPIManager;
+import it.antresol.api.IRequestStatusListener;
+import it.antresol.model.CreateUserBody;
+import it.antresol.model.CreateUserResponse;
 import it.antresol.ui.BaseFragment;
 
 /**
  * Created by fastwow on 28.02.2015.
  */
-public class MyUserLoginFragment extends BaseFragment {
+public class MyUserLoginFragment extends BaseFragment implements IRequestStatusListener<CreateUserResponse> {
+
+    public static final String TAG = MyUserLoginFragment.class.getSimpleName();
+
+    private UiLifecycleHelper uiHelper;
 
     @InjectView(R.id.antresol_image)
     ImageView mAntresolImageView;
@@ -41,12 +60,119 @@ public class MyUserLoginFragment extends BaseFragment {
 
                 case R.id.login_fb_container:
 
+                    facebookLoginBtnOnClick();
                     break;
             }
         }
     };
 
-    public static final String TAG = MyUserLoginFragment.class.getSimpleName();
+    private void getUserInfo(final Session session) {
+
+        if (mUIEventListener != null)
+            mUIEventListener.showProgressBar();
+
+        Request.newMeRequest(session, new Request.GraphUserCallback() {
+            @Override
+            public void onCompleted(GraphUser user, Response response) {
+
+                if (response != null && session == Session.getActiveSession()) {
+
+                    try {
+
+                        String lastName = user.getLastName();
+                        String firstName = user.getLastName();
+                        String token = Session.getActiveSession().getAccessToken();
+                        Log.d(TAG, "Name: " + lastName + " Email: " + firstName);
+
+                        CreateUserBody createUser = new CreateUserBody(lastName, firstName,
+                                CreateUserBody.PROVIDER_FACEBOOK, user.getId(), token);
+                        AntresolAPIManager.getInstance().createUser(MyUserLoginFragment.this, createUser);
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                        Log.d(TAG, "Exception e");
+
+
+                        if (mUIEventListener != null)
+                            mUIEventListener.dismissProgressBar();
+                    }
+                }
+            }
+        }).executeAsync();
+    }
+
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+
+        getUserInfo(session);
+    }
+
+    private Session.StatusCallback statusCallback =
+            new SessionStatusCallback();
+
+    @Override
+    public void startFetchDataFromServer() {
+
+    }
+
+    @Override
+    public void onSuccess(CreateUserResponse result, boolean isNeedToRefreshData) {
+
+    }
+
+    @Override
+    public void onSuccess(CreateUserResponse result) {
+
+        if (mUIEventListener != null)
+            mUIEventListener.dismissProgressBar();
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, MyUserProfileFragment.newInstance())
+                .commit();
+    }
+
+    @Override
+    public void onError() {
+
+        if (mUIEventListener != null)
+            mUIEventListener.dismissProgressBar();
+    }
+
+    @Override
+    public void onError(String text) {
+
+    }
+
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            // Respond to session state changes, ex: updating the view
+
+            if (state.isOpened()) {
+
+                Log.i(TAG, "Logged in...");
+                getUserInfo(session);
+            } else if (state.isClosed()) {
+
+                Log.i(TAG, "Logged out...");
+            }
+
+            onSessionStateChange(session, state, exception);
+        }
+    }
+
+    private void facebookLoginBtnOnClick() {
+
+        Session session = Session.getActiveSession();
+        if (session != null) {
+            if (!session.isOpened() && !session.isClosed()) {
+                session.openForRead(new Session.OpenRequest(this)
+                        .setPermissions(Arrays.asList("public_profile", "user_friends", "email", "user_likes"))
+                        .setCallback(statusCallback));
+            } else {
+                Session.openActiveSession(getActivity(), this, true, statusCallback);
+            }
+        }
+    }
 
     public static Fragment newInstance() {
 
@@ -59,11 +185,15 @@ public class MyUserLoginFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
+        uiHelper.onCreate(savedInstanceState);
+
         if (getActionBar() != null) {
 
             getActionBar().setTitle(R.string.login);
         }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,5 +211,47 @@ public class MyUserLoginFragment extends BaseFragment {
         mLoginFbView.setOnClickListener(mLoginBtnOnClickListener);
 
         return mRootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Session session = Session.getActiveSession();
+        if (session != null &&
+                (session.isOpened() || session.isClosed())) {
+
+            onSessionStateChange(session, session.getState(), null);
+        }
+
+        uiHelper.onResume();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        uiHelper.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        uiHelper.onSaveInstanceState(outState);
+
     }
 }

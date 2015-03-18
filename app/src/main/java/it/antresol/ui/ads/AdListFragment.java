@@ -221,6 +221,11 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     }
 
     @Override
+    public void onSuccess(List<Ad> result) {
+
+    }
+
+    @Override
     public void onError() {
 
         if (mSwipeRefreshLayout.isRefreshing())
