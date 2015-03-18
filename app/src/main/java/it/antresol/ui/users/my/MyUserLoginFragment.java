@@ -27,6 +27,7 @@ import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CurrentUser;
 import it.antresol.ui.BaseFragment;
+import it.antresol.utils.PreferenceHelper;
 
 /**
  * Created by fastwow on 28.02.2015.
@@ -120,12 +121,14 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
     }
 
     @Override
-    public void onSuccess(CurrentUser result) {
+    public void onSuccess(CurrentUser user) {
 
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
 
-        Log.d(TAG, "onSuccess.result = " + result);
+        Log.d(TAG, "onSuccess.result = " + user);
+
+        PreferenceHelper.getInstance(getApp()).setCurrentUser(user);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, MyUserProfileFragment.newInstance())

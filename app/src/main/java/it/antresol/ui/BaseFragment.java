@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import it.antresol.AntresolApplication;
+
 /**
  * Created by artem on 2/16/15.
  */
@@ -24,6 +26,8 @@ public class BaseFragment extends Fragment {
     protected IUIEventListener mUIEventListener = null;
 
     private ActionBar mActionBar;
+
+    private AntresolApplication mApp;
 
     protected Picasso mPicasso;
 
@@ -38,6 +42,8 @@ public class BaseFragment extends Fragment {
 
             if (getActivity() instanceof ActionBarActivity)
                 mActionBar = ((ActionBarActivity) activity).getSupportActionBar();
+
+            mApp = (AntresolApplication) getActivity().getApplication();
         } catch (Throwable th) {
 
             Log.e(TAG, "failed ", th);
@@ -59,6 +65,11 @@ public class BaseFragment extends Fragment {
         super.onDetach();
 
         mUIEventListener = null;
+    }
+
+    public AntresolApplication getApp() {
+
+        return mApp;
     }
 
     public ActionBar getActionBar() {
