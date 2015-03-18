@@ -14,6 +14,7 @@ import java.util.List;
 import it.antresol.model.Ad;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CreateUserResponse;
+import it.antresol.model.CurrentUser;
 import it.antresol.model.GetAds;
 import it.antresol.model.User;
 import retrofit.Callback;
@@ -151,11 +152,12 @@ public class AntresolAPIManager {
     public void createUser(final IRequestStatusListener listener, CreateUserBody user) {
 
         mAntresolAPIService.createUser(user, new Callback<CreateUserResponse>() {
+
             @Override
             public void success(CreateUserResponse createUserResponse, Response response) {
 
                 if (listener != null)
-                    listener.onSuccess(createUserResponse);
+                    listener.onSuccess(createUserResponse.getCurrentUser());
             }
 
             @Override

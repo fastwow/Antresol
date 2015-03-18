@@ -52,4 +52,14 @@ public class Like extends BaseModel {
 
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+
+        return "Like{" +
+                "adId=" + adId +
+                ", userId=" + userId +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

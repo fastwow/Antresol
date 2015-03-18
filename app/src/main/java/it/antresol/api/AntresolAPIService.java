@@ -3,8 +3,9 @@ package it.antresol.api;
 import org.json.JSONObject;
 
 import it.antresol.model.CreateUserBody;
-import it.antresol.model.GetAds;
 import it.antresol.model.CreateUserResponse;
+import it.antresol.model.GetAds;
+import it.antresol.model.CurrentUser;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.DELETE;

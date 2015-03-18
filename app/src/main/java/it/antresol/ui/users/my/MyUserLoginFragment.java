@@ -25,13 +25,13 @@ import it.antresol.R;
 import it.antresol.api.AntresolAPIManager;
 import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.CreateUserBody;
-import it.antresol.model.CreateUserResponse;
+import it.antresol.model.CurrentUser;
 import it.antresol.ui.BaseFragment;
 
 /**
  * Created by fastwow on 28.02.2015.
  */
-public class MyUserLoginFragment extends BaseFragment implements IRequestStatusListener<CreateUserResponse> {
+public class MyUserLoginFragment extends BaseFragment implements IRequestStatusListener<CurrentUser> {
 
     public static final String TAG = MyUserLoginFragment.class.getSimpleName();
 
@@ -115,15 +115,17 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
     }
 
     @Override
-    public void onSuccess(CreateUserResponse result, boolean isNeedToRefreshData) {
+    public void onSuccess(CurrentUser result, boolean isNeedToRefreshData) {
 
     }
 
     @Override
-    public void onSuccess(CreateUserResponse result) {
+    public void onSuccess(CurrentUser result) {
 
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
+
+        Log.d(TAG, "onSuccess.result = " + result);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, MyUserProfileFragment.newInstance())
