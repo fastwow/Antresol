@@ -18,6 +18,7 @@ import it.antresol.api.AntresolAPIManager;
 import it.antresol.model.User;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
+import it.antresol.utils.BlurTransform;
 import it.antresol.utils.GlobalArgs;
 
 /**
@@ -54,8 +55,8 @@ public class UserProfileFragment extends BaseFragment {
     @InjectView(R.id.location)
     TextView mLocationTv;
 
-//    @InjectView(R.id.blur_bg)
-    ImageView mBlurBgImageView;
+    @InjectView(R.id.screen_bg)
+    ImageView mScreenBgImageView;
 
     public static UserProfileFragment newInstance(long userId) {
 
@@ -83,14 +84,13 @@ public class UserProfileFragment extends BaseFragment {
             mPicasso.load(mUser.getAvatar())
                     .error(android.R.drawable.stat_notify_error)
                     .placeholder(android.R.drawable.stat_notify_sync)
-//                    .transform(new RoundedTransformation())
                     .into(mAvatarImageView);
 
-//            mPicasso.load(mUser.getAvatar())
+            mPicasso.load(mUser.getAvatar())
 //                    .error(android.R.drawable.stat_notify_error)
-//                    .placeholder(android.R.drawable.stat_notify_sync)
-//                    .transform(new RoundedTransformation())
-//                    .into(mBlurBgImageView);
+                    .placeholder(android.R.drawable.stat_notify_sync)
+                    .transform(new BlurTransform(getApp()))
+                    .into(mScreenBgImageView);
         }
     }
 

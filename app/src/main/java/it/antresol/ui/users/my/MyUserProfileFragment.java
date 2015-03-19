@@ -21,6 +21,7 @@ import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
 import it.antresol.ui.ads.CreateAdActivity;
 import it.antresol.ui.views.EmptyRecyclerView;
+import it.antresol.utils.BlurTransform;
 import it.antresol.utils.PreferenceHelper;
 
 /**
@@ -42,6 +43,9 @@ public class MyUserProfileFragment extends BaseFragment {
 
     @InjectView(R.id.avatar)
     ImageView mAvatarImageView;
+
+    @InjectView(R.id.screen_bg)
+    ImageView mScreenBgImageView;
 
     @InjectView(R.id.name)
     TextView mNameTv;
@@ -107,6 +111,12 @@ public class MyUserProfileFragment extends BaseFragment {
                     .error(android.R.drawable.stat_notify_error)
                     .placeholder(android.R.drawable.stat_notify_sync)
                     .into(mAvatarImageView);
+
+            mPicasso.load(mUser.getAvatar())
+//                    .error(android.R.drawable.stat_notify_error)
+                    .placeholder(android.R.drawable.stat_notify_sync)
+                    .transform(new BlurTransform(getApp()))
+                    .into(mScreenBgImageView);
         }
     }
 
