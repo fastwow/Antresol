@@ -72,13 +72,19 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></FrameLayout>
+                android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+                <it.antresol.ui.views.EmptyRecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+                <include
+                    android:id="@+id/empty"
+                    layout="@layout/layout_empty_state"
+                    android:visibility="gone" />
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

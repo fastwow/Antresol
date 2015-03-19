@@ -29,4 +29,7 @@
 
     <string name="app_id">669238399825427</string>
 
+    <string name="create_ad_info">Создайте объявление\nза 30 секунд</string>
+
+    <string name="create_ad_on_antresol">Разместить на Антресоль</string>
 </resources>

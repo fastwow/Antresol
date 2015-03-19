@@ -1,5 +1,6 @@
 package it.antresol.ui.users.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import it.antresol.R;
 import it.antresol.model.CurrentUser;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.ads.AdAdapter;
+import it.antresol.ui.ads.CreateAdActivity;
+import it.antresol.ui.views.EmptyRecyclerView;
 import it.antresol.utils.PreferenceHelper;
 
 /**
@@ -31,7 +34,9 @@ public class MyUserProfileFragment extends BaseFragment {
     private static final int COLUMN_COUNT = 2;
 
     @InjectView(R.id.list)
-    RecyclerView mAdListRecyclerView;
+    EmptyRecyclerView mAdListRecyclerView;
+    @InjectView(R.id.empty)
+    View mEmptyStateView;
     private AdAdapter mAdAdapter;
     private StaggeredGridLayoutManager mLayoutManager;
 
@@ -48,6 +53,24 @@ public class MyUserProfileFragment extends BaseFragment {
     TextView mLocationTv;
 
     private CurrentUser mUser;
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+
+        Intent actionIntent = null;
+
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+
+                case R.id.empty:
+
+                    actionIntent = new Intent(getActivity(), CreateAdActivity.class);
+                    startActivity(actionIntent);
+                    break;
+            }
+        }
+    };
 
     public static Fragment newInstance() {
 
@@ -70,6 +93,10 @@ public class MyUserProfileFragment extends BaseFragment {
 
         mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);
         mAdListRecyclerView.setLayoutManager(mLayoutManager);
+        mAdListRecyclerView.setInProgress(false);
+        mAdListRecyclerView.setEmptyView(mEmptyStateView);
+        mEmptyStateView.setOnClickListener(mOnClickListener);
+
         mAdListRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         if (getUser() != null) {
