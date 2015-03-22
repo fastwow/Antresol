@@ -2,9 +2,12 @@ package it.antresol.ui.ads;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -22,11 +25,31 @@ public class AdPageFragment extends BaseFragment {
 
     private Ad mAd;
 
+    @InjectView(R.id.avatar)
+    ImageView mAvatarImageView;
+
+    @InjectView(R.id.user_name)
+    TextView mUserNameTv;
+
+    @InjectView(R.id.title)
+    TextView mAdTitleTv;
+
+    @InjectView(R.id.desc)
+    TextView mAdDescTv;
+
     @InjectView(R.id.price)
     TextView mPriceTv;
 
     @InjectView(R.id.want)
     View mWantView;
+
+    @InjectView(R.id.scroll_container)
+    ScrollView mContainerScrollView;
+
+    @InjectView(R.id.image_pager)
+    ViewPager mImagePager;
+
+    private ImagePagerAdapter mAdapter;
 
     private View.OnClickListener mWantViewOnClickListener = new View.OnClickListener() {
 
@@ -71,6 +94,25 @@ public class AdPageFragment extends BaseFragment {
 
                 getActionBar().setTitle(mAd.getTitle());
             }
+
+            mAdapter = new ImagePagerAdapter(getActivity(), mAd.getImageList());
+            mImagePager.setAdapter(mAdapter);
+
+            String userAvatarUrl = "";
+            String userName = "";
+            if (mAd.getUser() != null) {
+
+                userAvatarUrl = mAd.getUser().getAvatar();
+                userName = mAd.getUser().getFirstName() + " " + mAd.getUser().getLastName();
+            }
+            mPicasso.load(userAvatarUrl)
+                    .error(android.R.drawable.stat_notify_error)
+                    .placeholder(android.R.drawable.stat_notify_sync)
+                    .into(mAvatarImageView);
+            mUserNameTv.setText(userName);
+
+            mAdTitleTv.setText(mAd.getTitle());
+            mAdDescTv.setText(mAd.getDesc());
         }
     }
 
