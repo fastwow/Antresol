@@ -47,7 +47,7 @@ public class AdPageFragment extends BaseFragment {
     ScrollView mContainerScrollView;
 
     @InjectView(R.id.image_pager)
-    ViewPager mImagePager;
+    ViewPager mImageViewPager;
 
     private ImagePagerAdapter mAdapter;
 
@@ -57,6 +57,20 @@ public class AdPageFragment extends BaseFragment {
         public void onClick(View v) {
 
             //TODO MAKE OFFER
+        }
+    };
+
+    private View.OnClickListener mAdImageOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            if (v.getTag() != null) {
+
+                String url = (String) v.getTag();
+                FullscreenImageDialogFragment.newInstance(url).show(getFragmentManager(),
+                        FullscreenImageDialogFragment.TAG);
+            }
         }
     };
 
@@ -95,8 +109,8 @@ public class AdPageFragment extends BaseFragment {
                 getActionBar().setTitle(mAd.getTitle());
             }
 
-            mAdapter = new ImagePagerAdapter(getActivity(), mAd.getImageList());
-            mImagePager.setAdapter(mAdapter);
+            mAdapter = new ImagePagerAdapter(getActivity(), mAdImageOnClickListener, mAd.getImageList());
+            mImageViewPager.setAdapter(mAdapter);
 
             String userAvatarUrl = "";
             String userName = "";

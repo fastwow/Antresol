@@ -9,6 +9,11 @@
     <color name="accent">#64FFDA</color>
     <color name="accent_pressed">#1DE9B6</color>
 
+    <color name="black">#000000</color>
+    <color name="black_95_alpha">#F2000000</color>
+    <color name="black_90_alpha">#E6000000</color>
+    <color name="black_85_alpha">#D9000000</color>
+    <color name="black_80_alpha">#CC000000</color>
     <color name="black_70_alpha">#B3000000</color>
     <color name="black_60_alpha">#99000000</color>
     <color name="black_50_alpha">#80000000</color>
@@ -17,7 +22,6 @@
     <color name="black_20_alpha">#33000000</color>
     <color name="black_10_alpha">#1A000000</color>
 
-    <color name="black">#000000</color>
 
     <color name="white">#FFFFFF</color>
 </resources>

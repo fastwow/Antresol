@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import it.antresol.R;
 
 /**
@@ -20,6 +22,8 @@ public class BaseDialogFragment extends DialogFragment {
 
     protected View mRootView = null;
     protected IUIEventListener mUIEventListener = null;
+
+    protected Picasso mPicasso;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class BaseDialogFragment extends DialogFragment {
         try {
 
             mUIEventListener = (IUIEventListener) activity;
+
+            mPicasso = new Picasso.Builder(activity.getApplicationContext())
+                    .indicatorsEnabled(false)
+                    .build();
         } catch (Throwable th) {
 
             Log.e(TAG, "failed ", th);
