@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,15 +13,19 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/create_ad_info"/>
+        android:text="@string/create_ad_info"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/create_ad"
         android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:text="@string/create_ad_on_antresol"/>
+        android:textSize="14dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/create_ad_on_antresol"
+        android:textColor="@color/A700" />
 </LinearLayout>

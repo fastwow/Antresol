@@ -46,6 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:singleLine="true"
+                android:textSize="18sp"
+                android:textColor="@color/white"
                 android:text="Дмитрий Самойленко" />
 
             <TextView
@@ -53,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/grey_1"
                 android:singleLine="true"
                 android:text="Миколаїв" />
 
@@ -61,6 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:textSize="12dp"
+                android:textColor="@color/grey"
                 android:singleLine="true"
                 android:text="пользователь Antresol с 28 ноября 2014" />
 
@@ -70,6 +76,7 @@
                 android:layout_marginBottom="20dp"
                 android:gravity="center_horizontal"
                 android:singleLine="true"
+                android:textColor="@color/white"
                 android:text="Моя Антресоль" />
 
             <FrameLayout
