@@ -32,4 +32,8 @@
     <string name="create_ad_info">Создайте объявление\nза 30 секунд</string>
 
     <string name="create_ad_on_antresol">Разместить на Антресоль</string>
+
+    <string name="comments_hint">Оставить комментарий</string>
+    <string name="send">Отправить</string>
+    <string name="comments_amount">0 комментариев</string>
 </resources>
