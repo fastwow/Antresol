@@ -5,12 +5,11 @@ import android.view.MenuItem;
 
 import it.antresol.R;
 import it.antresol.ui.BaseActivityBarActivity;
-import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by artem on 3/14/15.
  */
-public class MyUserActivity extends BaseActivityBarActivity {
+public class MyUserLoginActivity extends BaseActivityBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +19,9 @@ public class MyUserActivity extends BaseActivityBarActivity {
 
         if (savedInstanceState == null) {
 
-            if (UserPreferenceHelper.getInstance().isUserLogged()) {
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, MyUserProfileFragment.newInstance())
-                        .commit();
-            } else {
-
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, MyUserLoginFragment.newInstance())
-                        .commit();
-            }
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, MyUserLoginFragment.newInstance())
+                    .commit();
         }
     }
 

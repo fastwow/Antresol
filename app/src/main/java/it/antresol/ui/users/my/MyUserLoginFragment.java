@@ -1,10 +1,10 @@
 package it.antresol.ui.users.my;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,14 +130,6 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
     }
 
-    private void backToUserProfileFragment() {
-
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, MyUserProfileFragment.newInstance(), MyUserProfileFragment.TAG)
-                .commit();
-    }
-
     @Override
     public void onSuccess(CurrentUser user) {
 
@@ -148,9 +140,7 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
         if (mUIEventListener != null)
             mUIEventListener.dismissProgressBar();
 
-        getActivity().setResult(FragmentActivity.RESULT_OK);
-
-        backToUserProfileFragment();
+        getActivity().startActivity(new Intent(getActivity(), MyUserProfileActivity.class));
     }
 
     @Override
@@ -201,11 +191,6 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
         uiHelper = new UiLifecycleHelper(getActivity(), statusCallback);
         uiHelper.onCreate(savedInstanceState);
-
-        if (getActionBar() != null) {
-
-            getActionBar().setTitle(R.string.login);
-        }
     }
 
 

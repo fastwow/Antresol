@@ -23,7 +23,10 @@
     <string name="create_ad">Подать товар</string>
     
     <string name="login">Вход</string>
-    <string name="current_user">Мой профайл</string>
+    <string name="my_profile">Профайл</string>
+    <string name="favorite">Избранное</string>
+    <string name="msg">Сообщения</string>
+    <string name="find_friends">Найти друзей</string>
     <string name="login_fb">Войти с помощью Facebook</string>
     <string name="login_vk">Войти с помощью Вконтакте</string>
 

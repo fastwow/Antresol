@@ -30,6 +30,17 @@ public class BaseActivityBarActivity extends ActionBarActivity implements IUIEve
         ButterKnife.inject(this);
     }
 
+    protected void onCreate(Bundle savedInstanceState, boolean isNeedToSetDefaultContentView) {
+        super.onCreate(savedInstanceState);
+
+        if (isNeedToSetDefaultContentView) {
+
+            setContentView(R.layout.activity_main);
+
+            ButterKnife.inject(this);
+        }
+    }
+
     private void setErrorMessageVisibility(boolean isVisible) {
 
         if (mErrorMessageTv != null)

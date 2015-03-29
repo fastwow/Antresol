@@ -30,23 +30,15 @@ public class UserProfileActivity extends BaseActivityBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
 
-            if (getIntent() == null || getIntent().getExtras() == null) {
-
-                finish();
-                return;
-            } else {
-
-                long userId = getIntent().getExtras().getLong(GlobalArgs.USER_ID);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, UserProfileFragment.newInstance(userId)).commit();
-            }
+            long userId = getIntent().getExtras().getLong(GlobalArgs.USER_ID);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, UserProfileFragment.newInstance(userId)).commit();
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

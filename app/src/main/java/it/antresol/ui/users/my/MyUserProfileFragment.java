@@ -82,16 +82,6 @@ public class MyUserProfileFragment extends BaseFragment {
         return instance;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getActionBar() != null) {
-
-            getActionBar().setTitle(R.string.current_user);
-        }
-    }
-
     private void initViews() {
 
         mLayoutManager = new StaggeredGridLayoutManager(COLUMN_COUNT, StaggeredGridLayoutManager.VERTICAL);

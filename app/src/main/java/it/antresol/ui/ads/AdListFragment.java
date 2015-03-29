@@ -30,8 +30,9 @@ import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.users.UserProfileActivity;
-import it.antresol.ui.users.my.MyUserActivity;
+import it.antresol.ui.users.my.MyUserLoginActivity;
 import it.antresol.ui.users.my.MyUserNewsActivity;
+import it.antresol.ui.users.my.MyUserProfileActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 import it.antresol.utils.GlobalArgs;
 import it.antresol.utils.UserPreferenceHelper;
@@ -147,11 +148,10 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                 return true;
             case R.id.action_profile:
 
-                Intent profileIntent = new Intent(getActivity(), MyUserActivity.class);
-                if (UserPreferenceHelper.getInstance().isUserLogged())
-                    startActivity(profileIntent);
-                else
-                    startActivityForResult(profileIntent, USER_AUTH_REQUEST_CODE);
+                Intent profileIntent = new Intent(getActivity(), UserPreferenceHelper.getInstance().isUserLogged() ?
+                        MyUserProfileActivity.class : MyUserProfileActivity.class);
+                startActivity(profileIntent);
+
                 return true;
             default:
                 return false;
