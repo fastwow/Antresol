@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
     @InjectView(R.id.login_vk_container)
     View mLoginVkView;
+
+    private boolean isLoginFlowStarted = false;
 
     private View.OnClickListener mLoginBtnOnClickListener = new View.OnClickListener() {
 
@@ -127,19 +130,27 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
     }
 
+    private void backToUserProfileFragment() {
+
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, MyUserProfileFragment.newInstance(), MyUserProfileFragment.TAG)
+                .commit();
+    }
+
     @Override
     public void onSuccess(CurrentUser user) {
-
-        if (mUIEventListener != null)
-            mUIEventListener.dismissProgressBar();
 
         Log.d(TAG, "onSuccess.result = " + user);
 
         UserPreferenceHelper.getInstance().setCurrentUser(user);
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, MyUserProfileFragment.newInstance())
-                .commit();
+        if (mUIEventListener != null)
+            mUIEventListener.dismissProgressBar();
+
+        getActivity().setResult(FragmentActivity.RESULT_OK);
+
+        backToUserProfileFragment();
     }
 
     @Override
@@ -219,14 +230,6 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
     @Override
     public void onResume() {
         super.onResume();
-
-        Session session = Session.getActiveSession();
-        if (session != null &&
-                (session.isOpened() || session.isClosed())) {
-
-            onSessionStateChange(session, session.getState(), null);
-        }
-
         uiHelper.onResume();
     }
 

@@ -1,18 +1,22 @@
 package it.antresol.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by artem on 2/12/15.
  */
 public class Like extends BaseModel {
 
+    @SerializedName("ad_id")
     @Expose
     private long adId;
 
+    @SerializedName("user_id")
     @Expose
     private long userId;
 
+    @SerializedName("created_at")
     @Expose
     private long createdAt;
 

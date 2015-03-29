@@ -51,6 +51,11 @@ public class UserPreferenceHelper {
         PreferenceManager.getDefaultSharedPreferences(mContenxt).edit().putBoolean(key, value).commit();
     }
 
+    private void saveField(String key, CurrentUser value) {
+
+        PreferenceManager.getDefaultSharedPreferences(mContenxt).edit().putString(key, new Gson().toJson(value)).commit();
+    }
+
     private void saveField(String key, String value) {
 
         PreferenceManager.getDefaultSharedPreferences(mContenxt).edit().putString(key, value).commit();
@@ -85,21 +90,40 @@ public class UserPreferenceHelper {
 
     public void setCurrentUser(CurrentUser user) {
 
-        saveField(CURRENT_USER, new Gson().toJson(user));
+        saveField(CURRENT_USER, user);
         isUserLogged = user != null;
         currentUser = user;
     }
 
-    public boolean addLike(Like like) {
+    private void saveChanges() {
+
+        saveField(CURRENT_USER, currentUser);
+    }
+
+    public void addLike(Like like) {
 
         try {
 
-            return getCurrentUser().getLikeList().add(like);
+            getCurrentUser().getLikeList().add(like);
+            saveChanges();
         } catch (Exception e) {
 
-            return false;
+            Log.e(TAG, "Failed !", e);
         }
     }
+
+    public void deleteLike(Like like) {
+
+        try {
+
+            getCurrentUser().getLikeList().remove(like);
+            saveChanges();
+        } catch (Exception e) {
+
+            Log.e(TAG, "Failed !", e);
+        }
+    }
+
 
     public boolean isAdLiked(long adId) {
 

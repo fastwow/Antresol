@@ -75,7 +75,7 @@ public class MyUserProfileFragment extends BaseFragment {
         }
     };
 
-    public static Fragment newInstance() {
+    public static MyUserProfileFragment newInstance() {
 
         MyUserProfileFragment instance = new MyUserProfileFragment();
 

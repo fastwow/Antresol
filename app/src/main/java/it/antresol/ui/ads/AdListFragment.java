@@ -1,5 +1,6 @@
 package it.antresol.ui.ads;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,10 +27,11 @@ import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.Ad;
 import it.antresol.ui.BaseFragment;
 import it.antresol.ui.users.UserProfileActivity;
-import it.antresol.ui.users.my.MyUserNewsActivity;
 import it.antresol.ui.users.my.MyUserActivity;
+import it.antresol.ui.users.my.MyUserNewsActivity;
 import it.antresol.ui.views.EndlessRecyclerOnScrollListener;
 import it.antresol.utils.GlobalArgs;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by artem on 2/19/15.
@@ -37,6 +39,8 @@ import it.antresol.utils.GlobalArgs;
 public class AdListFragment extends BaseFragment implements IRequestStatusListener<List<Ad>> {
 
     private static final String TAG = AdListFragment.class.getSimpleName();
+
+    private static final int USER_AUTH_REQUEST_CODE = 101;
 
     private static final int COLUMN_COUNT = 2;
 
@@ -77,7 +81,10 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                 case R.id.user_profile:
 
                     fabIntent = new Intent(getActivity(), MyUserActivity.class);
-                    startActivity(fabIntent);
+                    if (UserPreferenceHelper.getInstance().isUserLogged())
+                        startActivity(fabIntent);
+                    else
+                        startActivityForResult(fabIntent, USER_AUTH_REQUEST_CODE);
                     break;
             }
         }
@@ -119,7 +126,7 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                     }
                     String text = selectedAd.getLikesCount() > 0 ?
                             selectedAd.getLikesCount() + "" : "";
-                    ((TextView)v).setText(text);
+                    ((TextView) v).setText(text);
                     break;
                 case R.id.more:
 
@@ -266,5 +273,16 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
 
         if (mUIEventListener != null)
             mUIEventListener.showErrorMessage(text);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == USER_AUTH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+            if (mAdAdapter.getItemCount() > 0)
+                mAdAdapter.notifyDataSetChanged();
+        }
     }
 }

@@ -12,12 +12,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.antresol.model.Ad;
-import it.antresol.model.AddLikeBody;
+import it.antresol.model.LikeBody;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CreateUserResponse;
 import it.antresol.model.CurrentUser;
 import it.antresol.model.GetAds;
 import it.antresol.model.Like;
+import it.antresol.model.LikeResponse;
 import it.antresol.model.User;
 import it.antresol.utils.UserPreferenceHelper;
 import retrofit.Callback;
@@ -176,13 +177,12 @@ public class AntresolAPIManager {
     public void addLike(final Long likedAdId) {
 
         mAntresolAPIService.addLike(getAccessTokenValue(),
-                new AddLikeBody(likedAdId), new Callback<Like>() {
+                new LikeBody(likedAdId), new Callback<LikeResponse>() {
 
                     @Override
-                    public void success(Like like, Response response) {
+                    public void success(LikeResponse likeResponse, Response response) {
 
-                        CurrentUser user = UserPreferenceHelper.getInstance().getCurrentUser();
-                        user.getLikeList().add(like);
+                        UserPreferenceHelper.getInstance().addLike(likeResponse.getLike());
                     }
 
                     @Override
@@ -194,13 +194,12 @@ public class AntresolAPIManager {
 
     public void deleteLike(final Long likedAdId) {
 
-        mAntresolAPIService.deleteLike(getAccessTokenValue(), new AddLikeBody(likedAdId), new Callback<Like>() {
+        mAntresolAPIService.deleteLike(getAccessTokenValue(), new LikeBody(likedAdId), new Callback<LikeResponse>() {
 
             @Override
-            public void success(Like like, Response response) {
+            public void success(LikeResponse likeResponse, Response response) {
 
-                CurrentUser user = UserPreferenceHelper.getInstance().getCurrentUser();
-                user.getLikeList().remove(like);
+                UserPreferenceHelper.getInstance().deleteLike(likeResponse.getLike());
             }
 
             @Override

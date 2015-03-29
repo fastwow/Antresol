@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by artem on 3/29/15.
  */
-public class AddLikeBody {
+public class LikeBody {
 
     @SerializedName("ad_id")
     private long adId;
 
-    public AddLikeBody(long adId) {
+    public LikeBody(long adId) {
 
         this.adId = adId;
     }
 
-    public AddLikeBody() {
+    public LikeBody() {
 
     }
 

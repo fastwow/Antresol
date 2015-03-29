@@ -1,13 +1,11 @@
 package it.antresol.api;
 
-import org.json.JSONObject;
-
-import it.antresol.model.AddLikeBody;
+import it.antresol.model.LikeBody;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CreateUserResponse;
 import it.antresol.model.GetAds;
-import it.antresol.model.CurrentUser;
 import it.antresol.model.Like;
+import it.antresol.model.LikeResponse;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
@@ -31,10 +29,10 @@ public interface AntresolAPIService {
     void getAdList(@Query("page") String numPage, Callback<GetAds> results);
 
     @POST("/likes")
-    void addLike(@Header("Authorization") String authorization, @Body AddLikeBody likedBody, Callback<Like> results);
+    void addLike(@Header("Authorization") String authorization, @Body LikeBody likedBody, Callback<LikeResponse> results);
 
     @DELETE("/likes")
-    void deleteLike(@Header("Authorization") String authorization, @Body AddLikeBody likedBody, Callback<Like> results);
+    void deleteLike(@Header("Authorization") String authorization, @Body LikeBody likedBody, Callback<LikeResponse> results);
 
     @POST("/users")
     void createUser(@Body CreateUserBody user, Callback<CreateUserResponse> results);
