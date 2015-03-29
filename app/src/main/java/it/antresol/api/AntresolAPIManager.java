@@ -12,11 +12,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.antresol.model.Ad;
+import it.antresol.model.AddLikeBody;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CreateUserResponse;
 import it.antresol.model.CurrentUser;
 import it.antresol.model.GetAds;
+import it.antresol.model.Like;
 import it.antresol.model.User;
+import it.antresol.utils.UserPreferenceHelper;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -163,8 +166,46 @@ public class AntresolAPIManager {
             @Override
             public void failure(RetrofitError error) {
 
+
                 if (listener != null)
                     listener.onError();
+            }
+        });
+    }
+
+    public void addLike(final Long likedAdId) {
+
+        mAntresolAPIService.addLike(getAccessTokenValue(),
+                new AddLikeBody(likedAdId), new Callback<Like>() {
+
+                    @Override
+                    public void success(Like like, Response response) {
+
+                        CurrentUser user = UserPreferenceHelper.getInstance().getCurrentUser();
+                        user.getLikeList().add(like);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+    }
+
+    public void deleteLike(final Long likedAdId) {
+
+        mAntresolAPIService.deleteLike(getAccessTokenValue(), new AddLikeBody(likedAdId), new Callback<Like>() {
+
+            @Override
+            public void success(Like like, Response response) {
+
+                CurrentUser user = UserPreferenceHelper.getInstance().getCurrentUser();
+                user.getLikeList().remove(like);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
             }
         });
     }
@@ -226,5 +267,10 @@ public class AntresolAPIManager {
                     listener.onError();
             }
         });
+    }
+
+    private String getAccessTokenValue() {
+
+        return "Bearer " + UserPreferenceHelper.getInstance().getAccessToken();
     }
 }

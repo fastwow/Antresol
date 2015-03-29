@@ -191,7 +191,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_toRightOf="@id/price_tl"
-                    android:hint="@string/price_default_hint" />
+                    android:hint="@string/price_default_hint"
+                    android:inputType="number" />
 
                 <TextView
                     android:id="@+id/currency_tl"

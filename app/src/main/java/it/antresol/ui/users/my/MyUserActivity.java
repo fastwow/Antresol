@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 import it.antresol.R;
 import it.antresol.ui.BaseActivityBarActivity;
-import it.antresol.utils.PreferenceHelper;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by artem on 3/14/15.
@@ -20,8 +20,7 @@ public class MyUserActivity extends BaseActivityBarActivity {
 
         if (savedInstanceState == null) {
 
-            if (PreferenceHelper.getInstance(this).isUserLogged()) {
-
+            if (UserPreferenceHelper.getInstance().isUserLogged()) {
 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, MyUserProfileFragment.newInstance())

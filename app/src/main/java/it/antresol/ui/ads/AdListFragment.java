@@ -11,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
@@ -101,6 +102,24 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
                     break;
                 case R.id.like:
 
+                    boolean isAddOperation = !v.isSelected();
+                    v.setSelected(isAddOperation);
+                    Ad selectedAd = AntresolAPIManager.getInstance().getAdFromCache(argId);
+                    if (selectedAd != null) {
+
+                        if (isAddOperation) {
+
+                            selectedAd.incrementLikesCount();
+                            AntresolAPIManager.getInstance().addLike(argId);
+                        } else {
+
+                            selectedAd.decreaseLikesCount();
+                            AntresolAPIManager.getInstance().deleteLike(argId);
+                        }
+                    }
+                    String text = selectedAd.getLikesCount() > 0 ?
+                            selectedAd.getLikesCount() + "" : "";
+                    ((TextView)v).setText(text);
                     break;
                 case R.id.more:
 

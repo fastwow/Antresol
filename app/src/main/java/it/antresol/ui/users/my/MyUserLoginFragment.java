@@ -27,7 +27,7 @@ import it.antresol.api.IRequestStatusListener;
 import it.antresol.model.CreateUserBody;
 import it.antresol.model.CurrentUser;
 import it.antresol.ui.BaseFragment;
-import it.antresol.utils.PreferenceHelper;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by fastwow on 28.02.2015.
@@ -104,7 +104,14 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 
-        getUserInfo(session);
+        if (state.isOpened()) {
+
+            Log.i(TAG, "Logged in...");
+            getUserInfo(session);
+        } else if (state.isClosed()) {
+
+            Log.i(TAG, "Logged out...");
+        }
     }
 
     private Session.StatusCallback statusCallback =
@@ -128,7 +135,7 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
 
         Log.d(TAG, "onSuccess.result = " + user);
 
-        PreferenceHelper.getInstance(getApp()).setCurrentUser(user);
+        UserPreferenceHelper.getInstance().setCurrentUser(user);
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, MyUserProfileFragment.newInstance())
@@ -151,15 +158,6 @@ public class MyUserLoginFragment extends BaseFragment implements IRequestStatusL
         @Override
         public void call(Session session, SessionState state, Exception exception) {
             // Respond to session state changes, ex: updating the view
-
-            if (state.isOpened()) {
-
-                Log.i(TAG, "Logged in...");
-                getUserInfo(session);
-            } else if (state.isClosed()) {
-
-                Log.i(TAG, "Logged out...");
-            }
 
             onSessionStateChange(session, state, exception);
         }

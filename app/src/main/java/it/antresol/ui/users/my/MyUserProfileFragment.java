@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import it.antresol.ui.ads.AdAdapter;
 import it.antresol.ui.ads.CreateAdActivity;
 import it.antresol.ui.views.EmptyRecyclerView;
 import it.antresol.utils.BlurTransform;
-import it.antresol.utils.PreferenceHelper;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by artem on 3/14/15.
@@ -135,7 +134,7 @@ public class MyUserProfileFragment extends BaseFragment {
     private CurrentUser getUser() {
 
         if (mUser == null)
-            mUser = PreferenceHelper.getInstance(getApp()).getCurrentUser();
+            mUser = UserPreferenceHelper.getInstance().getCurrentUser();
 
         return mUser;
     }

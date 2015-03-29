@@ -21,7 +21,7 @@ import it.antresol.R;
 import it.antresol.api.AntresolAPIManager;
 import it.antresol.model.Ad;
 import it.antresol.model.User;
-import it.antresol.ui.views.RoundedTransformation;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by artem on 2/19/15.
@@ -84,12 +84,14 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         holder.mRoot.setOnClickListener(mItemOnClickListener);
         holder.mRoot.setTag(item.getAdId());
 
-        holder.mLikeView.setOnClickListener(mItemOnClickListener);
-        holder.mLikeView.setTag(item.getAdId());
+        holder.mLikeTv.setOnClickListener(mItemOnClickListener);
+        holder.mLikeTv.setTag(item.getAdId());
+        holder.mLikeTv.setText(item.getLikesCount() > 0 ? item.getLikesCount() + "" : "");
+        holder.mLikeTv.setSelected(UserPreferenceHelper.getInstance().isAdLiked(item.getAdId()));
 
         mPicasso.load(user != null ? user.getAvatar() : "")
                 .error(android.R.drawable.stat_notify_error)
-                .placeholder(android.R.drawable.stat_notify_sync)
+                .placeholder(R.drawable.icon_user)
 //                .transform(new RoundedTransformation())
                 .into(holder.mAvatarImageVIew);
 
@@ -128,7 +130,7 @@ public class AdAdapter extends RecyclerView.Adapter<AdAdapter.ViewHolder> {
         View mAvatarContainerView;
 
         @InjectView(R.id.like)
-        View mLikeView;
+        TextView mLikeTv;
 
         public ViewHolder(View itemView) {
             super(itemView);

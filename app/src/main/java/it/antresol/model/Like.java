@@ -16,6 +16,12 @@ public class Like extends BaseModel {
     @Expose
     private long createdAt;
 
+    public Like(long adId, long userId) {
+
+        this.adId = adId;
+        this.userId = userId;
+    }
+
     public Like(long adId, long userId, long createdAt) {
 
         this.adId = adId;
@@ -61,5 +67,27 @@ public class Like extends BaseModel {
                 ", userId=" + userId +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public int hashCode() {
+
+        long hash = 17;
+        hash = hash * 31 + adId;
+        hash = hash * 31 + userId;
+
+        return (int) hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (!(obj instanceof Like))
+            return false;
+
+        if (obj == this)
+            return true;
+
+        Like rhs = (Like) obj;
+        return (adId == rhs.getAdId()) && (userId == rhs.getUserId());
     }
 }

@@ -239,6 +239,16 @@ public class Ad extends BaseModel {
         this.likesCount = likesCount;
     }
 
+    public void incrementLikesCount() {
+
+        likesCount++;
+    }
+
+    public void decreaseLikesCount() {
+
+        likesCount--;
+    }
+
     public int getIsDelete() {
 
         return isDelete;

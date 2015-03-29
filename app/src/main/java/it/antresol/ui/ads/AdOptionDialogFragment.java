@@ -12,6 +12,7 @@ import butterknife.InjectView;
 import it.antresol.R;
 import it.antresol.ui.BaseDialogFragment;
 import it.antresol.utils.GlobalArgs;
+import it.antresol.utils.UserPreferenceHelper;
 
 /**
  * Created by fastwow on 25.02.2015.
@@ -55,6 +56,11 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
         }
     }
 
+    private void initViews() {
+
+        mLikeImageView.setSelected(UserPreferenceHelper.getInstance().isAdLiked(mAdId));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -66,6 +72,8 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
         mSendMsgImageView.setOnClickListener(mOptionButtonsOnClickListener);
         mLikeImageView.setOnClickListener(mOptionButtonsOnClickListener);
         mMakeCallImageView.setOnClickListener(mOptionButtonsOnClickListener);
+
+        initViews();
 
         return mRootView;
     }
@@ -86,6 +94,7 @@ public class AdOptionDialogFragment extends BaseDialogFragment {
                     break;
                 case R.id.like:
 
+                    v.setSelected(!v.isSelected());
                     break;
 
                 case R.id.make_call:

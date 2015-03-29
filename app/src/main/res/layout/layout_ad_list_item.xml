@@ -52,13 +52,19 @@
                     android:textColor="#FCFCFC"
                     android:textSize="14sp" />
 
-                <ImageView
+                <TextView
                     android:id="@id/like"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_action_favorite_outline" />
+                    android:textColor="#FCFCFC"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:drawablePadding="5dp"
+                    android:textSize="14sp"
+                    android:text="1"
+                    android:drawableRight="@drawable/like_btn_selector" />
             </RelativeLayout>
 
         </FrameLayout>

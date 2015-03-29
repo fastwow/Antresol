@@ -3,6 +3,7 @@ package it.antresol.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -52,6 +53,8 @@ public class CurrentUser {
 
     public CurrentUser() {
 
+        mLikeList = new LinkedList<>();
+        mListSocialProfiles = new LinkedList<>();
     }
 
     public CurrentUser(List<SocialProfile> mListSocialProfiles, String username, String accessToken, long userId, double lat,
@@ -143,11 +146,11 @@ public class CurrentUser {
         this.createAt = createAt;
     }
 
-    public List<Like> getmLikeList() {
+    public List<Like> getLikeList() {
         return mLikeList;
     }
 
-    public void setmLikeList(List<Like> mLikeList) {
+    public void setLikeList(List<Like> mLikeList) {
         this.mLikeList = mLikeList;
     }
 

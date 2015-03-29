@@ -2,17 +2,21 @@ package it.antresol.utils;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import it.antresol.model.CurrentUser;
+import it.antresol.model.Like;
 
 /**
  * Created by artem on 2/16/15.
  */
-public class PreferenceHelper {
+public class UserPreferenceHelper {
 
-    private static PreferenceHelper mInstance = null;
+    public static final String TAG = UserPreferenceHelper.class.getSimpleName();
+
+    private static UserPreferenceHelper mInstance = null;
 
     private Context mContenxt;
 
@@ -24,7 +28,7 @@ public class PreferenceHelper {
 
     private CurrentUser currentUser;
 
-    private PreferenceHelper(Context context) {
+    private UserPreferenceHelper(Context context) {
 
         mContenxt = context;
         String userJson = getField(CURRENT_USER);
@@ -32,10 +36,12 @@ public class PreferenceHelper {
         currentUser = toCurrentUser(userJson);
     }
 
-    public static PreferenceHelper getInstance(Context context) {
+    public static void init(Context context) {
 
-        if (mInstance == null)
-            mInstance = new PreferenceHelper(context);
+        mInstance = new UserPreferenceHelper(context);
+    }
+
+    public static UserPreferenceHelper getInstance() {
 
         return mInstance;
     }
@@ -55,14 +61,26 @@ public class PreferenceHelper {
         return PreferenceManager.getDefaultSharedPreferences(mContenxt).getString(key, null);
     }
 
+    private CurrentUser createUser() {
+
+        setCurrentUser(new CurrentUser());
+
+        return currentUser;
+    }
+
     private CurrentUser toCurrentUser(String userJson) {
 
-        return userJson != null ? new Gson().fromJson(userJson, CurrentUser.class) : null;
+        return userJson != null ? new Gson().fromJson(userJson, CurrentUser.class) : createUser();
     }
 
     public CurrentUser getCurrentUser() {
 
         return currentUser != null ? currentUser : toCurrentUser(getField(CURRENT_USER));
+    }
+
+    public String getAccessToken() {
+
+        return getCurrentUser().getAccessToken();
     }
 
     public void setCurrentUser(CurrentUser user) {
@@ -72,8 +90,38 @@ public class PreferenceHelper {
         currentUser = user;
     }
 
+    public boolean addLike(Like like) {
+
+        try {
+
+            return getCurrentUser().getLikeList().add(like);
+        } catch (Exception e) {
+
+            return false;
+        }
+    }
+
+    public boolean isAdLiked(long adId) {
+
+        boolean res = false;
+        Like likedAd = null;
+        try {
+
+            likedAd = new Like(adId, getCurrentUser().getUserId());
+            res = getCurrentUser().getLikeList().contains(likedAd);
+        } catch (Exception ex) {
+
+            Log.e(TAG, "failed ! ", ex);
+        } finally {
+
+
+        }
+
+        return res;
+    }
+
     public boolean isUserLogged() {
 
-        return isUserLogged;
+        return getAccessToken() != null;
     }
 }
