@@ -38,7 +38,7 @@ public class BlurTransform implements Transformation {
         script.setInput(input);
 
         // Set the blur radius
-        script.setRadius(10);
+        script.setRadius(23);
 
         // Start the ScriptIntrinisicBlur
         script.forEach(output);

@@ -38,10 +38,10 @@
 
                 <TextView
                     android:id="@+id/sale_counter"
-                    android:layout_width="50dip"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/abc_btn_radio_material"
+                    android:background="@drawable/cycle_white_shape"
                     android:gravity="center"
                     android:text="0" />
 
@@ -55,29 +55,36 @@
 
                 <TextView
                     android:id="@+id/buy_counter"
-                    android:layout_width="50dip"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/abc_btn_radio_material"
+                    android:background="@drawable/cycle_white_shape"
                     android:gravity="center"
                     android:text="0" />
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:singleLine="true"
-                android:text="Дмитрий Самойленко" />
+                android:text="Дмитрий Самойленко"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_pin"
+                android:drawablePadding="5dp"
                 android:singleLine="true"
-                android:text="Миколаїв" />
+                android:text="Миколаїв"
+                android:textColor="@color/grey_1"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/since_date"
@@ -85,15 +92,48 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:singleLine="true"
-                android:text="пользователь Antresol с 28 ноября 2014" />
+                android:text="пользователь Antresol с 28 ноября 2014"
+                android:textColor="@color/grey"
+                android:textSize="12dp" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:gravity="center_horizontal"
-                android:singleLine="true"
-                android:text="Антресоль(16)" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <View
+                    android:id="@+id/divider_part_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/my_antresol_tv"
+                    android:background="@color/grey" />
+
+                <TextView
+                    android:id="@id/my_antresol_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_horizontal"
+                    android:singleLine="true"
+                    android:text="Антресоль(0)"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:id="@+id/divider_part_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/my_antresol_tv"
+                    android:layout_toRightOf="@id/my_antresol_tv"
+                    android:background="@color/grey" />
+            </RelativeLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
