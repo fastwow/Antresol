@@ -10,6 +10,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -52,11 +55,6 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
     SwipeRefreshLayout mSwipeRefreshLayout;
     @InjectView(R.id.add)
     FloatingActionButton mAddFAB;
-    @InjectView(R.id.news)
-    FloatingActionButton mNewsFAB;
-    @InjectView(R.id.user_profile)
-    FloatingActionButton mUserProfileFAB;
-
 
     private EndlessRecyclerOnScrollListener mOnScrollListener;
 
@@ -65,27 +63,15 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         @Override
         public void onClick(View v) {
 
-            Intent fabIntent = null;
             switch (v.getId()) {
 
                 case R.id.add:
 
-                    fabIntent = new Intent(getActivity(), CreateAdActivity.class);
+                    Intent fabIntent = new Intent(getActivity(), CreateAdActivity.class);
                     startActivity(fabIntent);
                     break;
 
-                case R.id.news:
-                    fabIntent = new Intent(getActivity(), MyUserNewsActivity.class);
-                    startActivity(fabIntent);
-                    break;
-                case R.id.user_profile:
 
-                    fabIntent = new Intent(getActivity(), MyUserActivity.class);
-                    if (UserPreferenceHelper.getInstance().isUserLogged())
-                        startActivity(fabIntent);
-                    else
-                        startActivityForResult(fabIntent, USER_AUTH_REQUEST_CODE);
-                    break;
             }
         }
     };
@@ -142,6 +128,36 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         }
     };
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_ad_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_activities:
+
+                Intent activitiesIntent = new Intent(getActivity(), MyUserNewsActivity.class);
+                startActivity(activitiesIntent);
+                return true;
+            case R.id.action_profile:
+
+                Intent profileIntent = new Intent(getActivity(), MyUserActivity.class);
+                if (UserPreferenceHelper.getInstance().isUserLogged())
+                    startActivity(profileIntent);
+                else
+                    startActivityForResult(profileIntent, USER_AUTH_REQUEST_CODE);
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private ScrollDirectionListener mScrollDirectionListener = new ScrollDirectionListener() {
         @Override
         public void onScrollDown() {
@@ -161,6 +177,13 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         AdListFragment instance = new AdListFragment();
 
         return instance;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -185,8 +208,6 @@ public class AdListFragment extends BaseFragment implements IRequestStatusListen
         mAdListRecyclerView.setOnScrollListener(mOnScrollListener);
 //        mFABButton.attachToRecyclerView(mAdListRecyclerView, mScrollDirectionListener, mOnScrollListener);
         mAddFAB.setOnClickListener(mFABOnClickListener);
-        mNewsFAB.setOnClickListener(mFABOnClickListener);
-        mUserProfileFAB.setOnClickListener(mFABOnClickListener);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
