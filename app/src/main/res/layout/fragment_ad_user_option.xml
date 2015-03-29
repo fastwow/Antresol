@@ -8,37 +8,35 @@
 
     <ImageView
         android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="20dp"
         android:src="@drawable/ic_close">
 
     </ImageView>
 
     <ImageView
         android:id="@+id/send_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:src="@drawable/ic_msg">
-
-    </ImageView>
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_opt_mail"></ImageView>
 
     <ImageView
         android:id="@+id/like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:src="@drawable/ic_action_favorite">
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/opt_like_bt_selector">
 
     </ImageView>
 
     <ImageView
         android:id="@+id/make_call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:src="@drawable/ic_call">
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_phone">
 
     </ImageView>
 
